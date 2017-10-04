@@ -1,0 +1,7 @@
+- src: git+https://github.com/victorock/ansible-role-common.git
+  version: dev
+  name: victorock.linux-common
+
+- src: git+https://github.com/victorock/ansible-role-aws-cloud.git
+  version: dev
+  name: victorock.aws-cloud

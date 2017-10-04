@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  become: no
+  gather_facts: no
+
+  roles:
+    - victorock.aws-cloud

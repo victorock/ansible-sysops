@@ -1,0 +1,2 @@
+- include: aws_instance.yml
+- include: linux_common.yml
