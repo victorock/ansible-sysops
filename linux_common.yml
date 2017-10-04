@@ -4,4 +4,4 @@
   gather_facts: yes
 
   roles:
-    - victorock.linux-common
+    - { role: victorock.linux-common }

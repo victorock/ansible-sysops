@@ -4,4 +4,4 @@
   gather_facts: no
 
   roles:
-    - victorock.aws-cloud
+    - { role: victorock.aws-cloud }
