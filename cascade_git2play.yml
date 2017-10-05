@@ -1,0 +1,42 @@
+- hosts: localhost
+  become: False
+  gather_facts: False
+
+  vars:
+    git2play_repo: https://github.com/victorock/ansible-devops.git
+    git2play_clone: yes
+    git2play_update: yes
+    git2play_track_submodules: yes
+    git2play_version: dev
+    git2play_playbook: site.yml
+
+  tasks:
+    - name: Create temporary git2play directory
+      tempfile:
+        state: directory
+        suffix: git2play
+      register: tempdir
+
+    - name: Git clone {{ git2play_repo }} at {{ tempdir.path }}
+      git:
+        repo: "{{ git2play_repo }}"
+        dest: "{{ tempdir.path }}"
+        clone: "{{ git2play_clone }}"
+        update: "{{ git2play_update }}"
+        track_submodules: "{{ git2play_track_submodules }}"
+        version: "{{ git2play_version }}"
+
+    - name: ansible-galaxy install roles/requirements.yml at roles/
+      command: "ansible-galaxy install -r roles/requirements.yml -p roles -f"
+      args:
+        chdir: "{{ tempdir.path }}"
+
+    - name: ansible-playbook {{ git2play_playbook }}
+      command: "ansible-playbook {{ git2play_playbook }}"
+      args:
+        chdir: "{{ tempdir.path }}"
+
+    - name: Ensure {{ tempdir.path }} directory is absent
+      file:
+        path: "{{ tempdir.path }}"
+        state: absent

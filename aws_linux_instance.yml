@@ -1,2 +1,2 @@
-- import_playbook: aws_instance.yml
-- import_playbook: linux_common.yml
+- include: aws_instance.yml
+- include: linux_common.yml
