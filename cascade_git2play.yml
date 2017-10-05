@@ -9,6 +9,8 @@
     git2play_track_submodules: yes
     git2play_version: dev
     git2play_playbook: site.yml
+    git2play_skip_tags: undefined
+    git2play_only_tags: undefined
 
   tasks:
     - name: Create temporary git2play directory
@@ -26,13 +28,25 @@
         track_submodules: "{{ git2play_track_submodules }}"
         version: "{{ git2play_version }}"
 
+    - name: Check if ansible-galaxy is required
+      stat:
+        path: "{{ tempdir.path }}/roles/requirements.yml"
+      register: galaxy
+
     - name: ansible-galaxy install roles/requirements.yml at roles/
-      command: "ansible-galaxy install -r roles/requirements.yml -p roles -f"
+      command: >
+        ansible-galaxy install
+        -r roles/requirements.yml
+        -p roles
       args:
         chdir: "{{ tempdir.path }}"
+      when: galaxy.stat.isreg
 
     - name: ansible-playbook {{ git2play_playbook }}
-      command: "ansible-playbook {{ git2play_playbook }}"
+      command: >
+        ansible-playbook {{ git2play_playbook }}
+        --skip-tags={{ git2play_skip_tags }}
+        --tags={{ git2play_only_tags }}
       args:
         chdir: "{{ tempdir.path }}"
 
