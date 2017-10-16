@@ -10,12 +10,12 @@
 
 - src: https://github.com/victorock/RHEL7-STIG.git
   scm: git
-  version: dev
+  version: devel
   name: victorock.rhel7-stig
 
 - src: https://github.com/victorock/RHEL7-CIS.git
   scm: git
-  version: dev
+  version: devel
   name: victorock.rhel7-cis
 
 - src: https://github.com/victorock/ansible-role-aws-cloud.git
