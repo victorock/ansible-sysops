@@ -2,4 +2,4 @@
 
 ## SysOps - System Operations Playbooks
 
-Repository of playbooks maintained by Security Operations.
+Repository of playbooks maintained by System Operations.

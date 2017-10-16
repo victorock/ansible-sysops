@@ -3,5 +3,14 @@
   become: no
   gather_facts: no
 
-  roles:
-    - { role: victorock.aws-cloud }
+  tasks:
+    - name: "AWS Instance"
+      include_role:
+        name: victorock.aws-cloud
+      vars:
+        ec2_region: "{{ instance_region | mandatory }}"
+        ec2_cloud_instances: "{{ instances | mandatory }}"
+        ec2_cloud_instance_image: "{{ instance_image | mandatory }}"
+        ec2_cloud_instance_os_type: "{{ instance_os_type | mandatory }}"
+        ec2_cloud_instance_boot_disk_volume_size: "{{ instance_boot_disk_volume_size | mandatory }}"
+        ec2_cloud_instance_boot_disk_delete_on_termination: "{{ instance_boot_disk_delete_on_termination | mandatory }}"

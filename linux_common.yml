@@ -1,7 +1,0 @@
----
-- hosts: os_linux
-  become: yes
-  gather_facts: yes
-
-  roles:
-    - { role: victorock.linux-common }
