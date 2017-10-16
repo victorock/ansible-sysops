@@ -8,6 +8,7 @@
       set_fact:
         instance_region: eu-central-1
         instances: 1
+        instance_type: t2.micro
         instance_image: CentOS Linux 7 x86_64*
         instance_os_type: linux
         instance_boot_disk_volume_size: 30

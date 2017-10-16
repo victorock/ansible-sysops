@@ -10,6 +10,7 @@
       vars:
         ec2_region: "{{ instance_region | mandatory }}"
         ec2_cloud_instances: "{{ instances | mandatory }}"
+        ec2_cloud_instance_type: "{{ instance_type | mandatory }}"
         ec2_cloud_instance_image: "{{ instance_image | mandatory }}"
         ec2_cloud_instance_os_type: "{{ instance_os_type | mandatory }}"
         ec2_cloud_instance_boot_disk_volume_size: "{{ instance_boot_disk_volume_size | mandatory }}"
