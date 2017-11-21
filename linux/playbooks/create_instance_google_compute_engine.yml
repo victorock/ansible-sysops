@@ -24,6 +24,7 @@
         image: "{{ image }}"
         disk_size: "{{ disk_size_gb }}"
         tags: "{{ tags }}"
+        num_instances: "{{ num_instances | default(omit) }}"
         state: "{{ state }}"
       register: r_gce
       with_items:
