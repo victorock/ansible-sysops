@@ -18,7 +18,7 @@
   tasks:
     - name: "Ensure state of virtual instance in goocle compute engine"
       gce:
-        instance_names: "{{ name }}"
+        name: "{{ name }}"
         zone: "{{ zone }}"
         machine_type: "{{ machine_type }}"
         image: "{{ image }}"
