@@ -4,11 +4,11 @@
 
   vars:
     peers:
-      - { host: 10.42.0.11, gateway: 0.0.0.0, maxhops: 30, wait: 2, packet_size_kb: 64 }
+      - { host: 10.42.0.11, maxhops: 30, wait: 2, packet_size_kb: 64 }
 
   tasks:
     - name: "Traceroute reachability"
-      shell: traceroute -FIen -w {{ icmp_trace.wait }} -g {{ icmp_trace.gateway }} -m {{ icmp_trace.maxhops }} {{ icmp_trace.host }} {{ icmp_trace.packet_size_kb }}
+      shell: traceroute -FIen -w {{ icmp_trace.wait }} -m {{ icmp_trace.maxhops }} {{ icmp_trace.host }} {{ icmp_trace.packet_size_kb }}
       register: r_shell
       with_items: "{{ peers }}"
       loop_control:

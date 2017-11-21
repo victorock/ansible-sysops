@@ -4,11 +4,11 @@
 
   vars:
     peers:
-      - { host: 10.42.0.11, gateway: 0.0.0.0, maxhops: 30, wait: 2, packet_size_kb: 64 }
+      - { host: 10.42.0.11, maxhops: 30, wait: 2, packet_size_kb: 64 }
 
   tasks:
     - name: "Traceroute reachability"
-      shell: traceroute -Fen -w {{ udp_trace.wait }} -g {{ udp_trace.gateway }} -m {{ udp_trace.maxhops }} {{ udp_trace.host }} {{ udp_trace.packet_size_kb }}
+      shell: traceroute -Fen -w {{ udp_trace.wait }} -m {{ udp_trace.maxhops }} {{ udp_trace.host }} {{ udp_trace.packet_size_kb }}
       register: r_shell
       with_items: "{{ peers }}"
       loop_control:
