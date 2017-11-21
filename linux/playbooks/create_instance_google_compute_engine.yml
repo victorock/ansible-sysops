@@ -33,5 +33,5 @@
         loop_var: state
         label: "{{ state }}"
 
-   - name: "Output"
-     debug: var=r_gce
+    - name: "Output"
+      debug: var=r_gce
