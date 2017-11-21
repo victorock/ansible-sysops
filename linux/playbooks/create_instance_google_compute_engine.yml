@@ -12,8 +12,8 @@
     machine_class: "unknown"
     zone: "europe-west1-b"
     tags:
-      - "environment:{{ machine_environment }}"
-      - "class:{{ machine_class }}"
+      - "{{ machine_environment }}"
+      - "{{ machine_class }}"
 
   tasks:
     - name: "Ensure state of virtual instance in goocle compute engine"
