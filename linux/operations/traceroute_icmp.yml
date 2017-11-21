@@ -8,7 +8,7 @@
 
   tasks:
     - name: "Traceroute reachability"
-      shell: traceroute -FISen -w {{ icmp_trace.wait|quote }} -g {{ icmp_trace.gateway|quote }} -m {{ icmp_trace.maxhops|quote }} {{ icmp_trace.host|quote }} {{ icmp_trace.packet_size_kb|quote }}
+      shell: traceroute -FIen -w {{ icmp_trace.wait|quote }} -g {{ icmp_trace.gateway|quote }} -m {{ icmp_trace.maxhops|quote }} {{ icmp_trace.host|quote }} {{ icmp_trace.packet_size_kb|quote }}
       register: r_shell
       with_items: "{{ peers }}"
       loop_control:

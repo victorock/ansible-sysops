@@ -8,7 +8,7 @@
 
   tasks:
     - name: "Traceroute reachability"
-      shell: traceroute -FSen -w {{ udp_trace.wait|quote }} -g {{ udp_trace.gateway|quote }} -m {{ udp_trace.maxhops|quote }} {{ udp_trace.host|quote }} {{ udp_trace.packet_size_kb|quote }}
+      shell: traceroute -Fen -w {{ udp_trace.wait|quote }} -g {{ udp_trace.gateway|quote }} -m {{ udp_trace.maxhops|quote }} {{ udp_trace.host|quote }} {{ udp_trace.packet_size_kb|quote }}
       register: r_shell
       with_items: "{{ peers }}"
       loop_control:
