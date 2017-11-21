@@ -1,0 +1,15 @@
+- name: "Linux LLDP"
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: "Gather information from lldp"
+      lldp:
+
+    - name: "Neighbors details"
+      debug:
+        msg: "{{ lldp[entry]['chassis']['name'] }} / {{ lldp[entry]['port']['ifname'] }}"
+      with_items: "{{ lldp.keys() }}"
+      loop_control:
+        loop_var: entry
+        label: "nic: {{ entry }}"

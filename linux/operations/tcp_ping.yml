@@ -1,0 +1,23 @@
+- name: "Linux TCP Ping"
+  hosts: all
+  gather_facts: no
+
+  vars:
+    peers:
+      - { host: 10.42.0.11, port: 22, content: OpenSSH, timeout: 30, state: present }
+      - { host: 10.42.0.12, port: 22, content: OpenSSH, timeout: 30, state: present }
+      - { host: 10.42.0.21, port: 22, content: OpenSSH, timeout: 30, state: present }
+      - { host: 10.42.0.22, port: 22, content: OpenSSH, timeout: 30, state: present }
+
+  tasks:
+    - name: "Check TCP connectivity"
+      wait_for:
+        host: "{{ tcp_ping.host }}"
+        port: "{{ tcp_ping.port }}"
+        timeout: "{{ tcp_ping.timeout }}"
+        state: "{{ tcp_ping.state }}"
+        search_regex: "{{ content }}"
+      with_items: "{{ peers }}"
+      loop_control:
+        loop_var: tcp_ping
+        label: "{{ tcp_ping.host }}"

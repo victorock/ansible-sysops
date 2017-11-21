@@ -1,0 +1,15 @@
+- name: "Linux Traceroute (ICMP)"
+  hosts: all
+  gather_facts: no
+
+  vars:
+    peers:
+      - { host: 10.42.0.11, gateway: 0.0.0.0, maxhops: 30, wait: 2, packet_size_kb: 64 }
+
+  tasks:
+    - name: "Traceroute reachability"
+      shell: traceroute -FISen -w {{ icmp_trace.wait|quote }} -g {{ icmp_trace.gateway|quote }} -m {{ icmp_trace.maxhops|quote }} {{ icmp_trace.host|quote }} {{ icmp_trace.packet_size_kb|quote }}
+      with_items: "{{ peers }}"
+      loop_control:
+        loop_var: icmp_trace
+        label: "{{ icmp_trace.host }}"

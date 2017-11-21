@@ -1,0 +1,15 @@
+- name: "Linux Traceroute (UDP)"
+  hosts: all
+  gather_facts: no
+
+  vars:
+    peers:
+      - { host: 10.42.0.11, gateway: 0.0.0.0, maxhops: 30, wait: 2, packet_size_kb: 64 }
+
+  tasks:
+    - name: "Traceroute reachability"
+      shell: traceroute -FSen -w {{ udp_trace.wait|quote }} -g {{ udp_trace.gateway|quote }} -m {{ udp_trace.maxhops|quote }} {{ udp_trace.host|quote }} {{ udp_trace.packet_size_kb|quote }}
+      with_items: "{{ peers }}"
+      loop_control:
+        loop_var: udp_trace
+        label: "{{ udp_trace.host }}"

@@ -1,0 +1,37 @@
+- name: "Create instance from image in Google Compute Engine"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+    vars:
+      name: "MyRHEL7"
+      image: "rhel-7"
+      machine_type: "n1-standard-1"
+      disk_size_gb: 20
+      machine_environment: "staging"
+      machine_class: "unknown"
+      zone: "europe-west1"
+      tags:
+        - "environment:{{ machine_environment }}"
+        - "class:{{ machine_class }}"
+
+    tasks:
+      - name: "Ensure state of virtual instance in goocle compute engine"
+        gce:
+          instance_names: "{{ name }}"
+          zone: "{{ zone }}"
+          machine_type: "{{ machine_type }}"
+          image: "{{ image }}"
+          disk_size: "{{ disk_size_gb }}"
+          tags: "{{ tags }}"
+          state: "{{ state }}"
+        register: r_gce
+        with_items:
+          - present
+          - started
+        loop_control:
+          loop_var: state
+          label: "{{ state }}"
+
+     - name: "Output"
+       debug: var=r_gce
