@@ -1,11 +1,13 @@
 ---
+## Linux
 - hosts: linux
   become: yes
   gather_facts: yes
+
+  vars:
+    common_packages_update: no
 
   tasks:
     - name: "Linux Common"
       include_role:
         name: victorock.linux
-      vars:
-        common_packages_update: no
