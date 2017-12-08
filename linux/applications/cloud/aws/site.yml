@@ -1,0 +1,49 @@
+---
+- name: "Galaxy"
+  hosts: all
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+    - name: detect requirements.yml
+      stat: path=roles/requirements.yml
+      register: doesRequirementsExist
+
+    - name: fetch galaxy roles from requirements.yml
+      command: ansible-galaxy install -r requirements.yml -p roles/ --force
+      args:
+        chdir: "roles"
+      when: doesRequirementsExist.stat.exists
+
+- name: "AWS"
+  hosts: localhost
+  connection: local
+  become: no
+  gather_facts: no
+
+  tasks:
+    - name: "AWS Instance"
+      include_role:
+        name: victorock.aws-cloud
+      vars:
+        ec2_region: "eu-central-1"
+        ec2_cloud_instances: "1"
+        ec2_cloud_instance_type: "t2.micro"
+        ec2_cloud_instance_os: CentOS Linux 7 x86_64*
+        ec2_cloud_instance_os_type: linux
+        ec2_cloud_instance_boot_disk_volume_size: 60
+        ec2_cloud_instance_boot_disk_delete_on_termination: yes
+
+## Linux
+- name: "Linux"
+  hosts: linux
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: "Linux Common"
+      include_role:
+        name: victorock.linux
+      vars:
+        common_packages_update: no

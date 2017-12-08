@@ -16,7 +16,7 @@
       - "{{ machine_class }}"
 
   tasks:
-    - name: "Ensure state of virtual instance in goocle compute engine"
+    - name: "Ensure state of virtual instance in google compute engine"
       gce:
         name: "{{ name }}"
         zone: "{{ zone }}"

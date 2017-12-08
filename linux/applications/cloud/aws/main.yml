@@ -1,3 +1,0 @@
-- import_playbook: galaxy.yml
-- import_playbook: instance.yml
-- import_playbook: linux.yml

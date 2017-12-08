@@ -1,0 +1,56 @@
+- name: "Create instance from image in Amazon Web Services"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    name: "MyRHEL7"
+    image: "rhel-7"
+    machine_type: "n1-standard-1"
+    disk_size_gb: 20
+    machine_environment: "staging"
+    machine_class: "unknown"
+    machine_version: "unknown"
+    zone: "europe-west1-b"
+    tags:
+      Name: "{{ name }}"
+      Environment: "{{ machine_environment }}"
+      Class: "{{ machine_class }}"
+      Version: "{{ machine_version }}"
+
+  tasks:
+    - name: "Find the image [ {{ ec2_cloud_ami_find_name }} ] in region [ {{ ec2_cloud_ami_find_region }} ]"
+      ec2_ami_find:
+        region: "{{ ec2_cloud_ami_find_region }}"
+        virtualization_type: hvm
+        name: "{{ ec2_cloud_ami_find_name }}"
+        no_result_action: fail
+        sort: name
+        sort_order: descending
+      register: r_ec2_ami_find
+
+    - set_fact:
+        image_id: "{{ r_ec2_ami_find.results[0].ami_id }}"
+
+    - name: "Scale to [ {{ ec2_cloud_instance_exact_count }} ] instances"
+      ec2:
+        assign_public_ip: "{{ ec2_cloud_instance_assign_public_ip }}"
+        wait: "{{ ec2_cloud_instance_wait }}"
+        region: "{{ ec2_cloud_instance_region }}"
+        vpc_subnet_id: "{{ ec2_cloud_instance_vpc_subnet_id }}"
+        group: "{{ ec2_cloud_instance_group_name }}"
+        exact_count: "{{ ec2_cloud_instance_exact_count }}"
+        image: "{{ image_id }}"
+        instance_type: "{{ ec2_cloud_instance_type }}"
+        key_name: "{{ ec2_cloud_instance_key_name }}"
+        instance_tags: "{{ ec2_cloud_instance_tags }}"
+        count_tag: "{{ ec2_cloud_instance_count_tag }}"
+        volumes:
+          - device_name: /dev/sda1
+            volume_type: gp2
+            volume_size: "{{ ec2_cloud_instance_boot_disk_volume_size }}"
+            delete_on_termination: "{{ ec2_cloud_instance_boot_disk_delete_on_termination }}"
+      register: r_ec2
+
+      - name: "Output"
+        debug: var=r_ec2

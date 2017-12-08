@@ -1,0 +1,63 @@
+- name: "Create instance from image in Openstack Cloud"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    availability_zone: "nova"
+    name: "MyRHEL7"
+    image: "4f905f38-e52a-43d2-b6ec-754a13ffb529"
+    flavor: "4"
+    volume_size_gb: 20
+    boot_from_volume: true
+    terminate_volume: true
+    network: "default"
+    floating_ip_pools: "default"
+    public_ip: "true"
+    delete_fip: true
+    security_groups: "default"
+    key_name: "default"
+    machine_environment: "staging"
+    machine_class: "unknown"
+    machine_version: "unknown"
+    meta:
+      Name: "{{ name }}"
+      Environment: "{{ machine_environment }}"
+      Class: "{{ machine_class }}"
+      Version: "{{ machine_version }}"
+    wait: true
+    validate_certs: false
+    timeout: 200
+    state: present
+
+  tasks:
+    - name: "Ensure state of virtual instance in Openstack"
+      os_server:
+        availability_zone: "{{ availability_zone }}"
+        name: "{{ name }}"
+        image: "{{ image }}"
+        flavor: "{{ flavor }}"
+        boot_from_volume: "{{ boot_from_volume }}"
+        volume_size: "{{ volume_size_gb }}"
+        terminate_volume: "{{ terminate_volume }}"
+        network: "{{ network }}"
+        public_ip: "{{ public_ip }}"
+        key_name: "{{ key_name }}"
+        security_groups: "{{ security_groups }}"
+        meta: "{{ meta }}"
+        userdata: |
+            #cloud-config
+            users:
+              - name: vagrant
+                primary-group: wheel
+                sudo: ALL=(ALL) NOPASSWD:ALL
+                ssh-authorized-keys:
+                  - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key
+        wait: "{{ wait }}"
+        validate_certs: "{{ validate_certs }}"
+        timeout: "{{ timeout }}"
+        state: "{{ state }}"
+      register: r_os_server
+
+    - name: "Output"
+      debug: var=r_os_server

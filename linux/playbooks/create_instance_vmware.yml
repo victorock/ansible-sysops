@@ -14,9 +14,9 @@
     network: "VM Network"
     machine_environment: "staging"
     machine_class: "unknown"
-    datacenter: "europe-west-fr1"
+    datacenter: "europe-central-fr1"
     cluster: "POD01"
-    datastore: "gluster_datastore01"
+    datastore: "gluster_datastore_01"
     annotation:
       - "environment={{ machine_environment }}"
       - "class={{ machine_class }}"
@@ -24,7 +24,6 @@
     dumpfacts: False
     wait_for_ip_address: True
     state: poweredon
-
 
   tasks:
     - name: "Ensure state of virtual instance in vmware"
