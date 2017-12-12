@@ -1,0 +1,19 @@
+---
+- name: "mysql"
+  hosts: all
+  become: true
+
+  vars:
+    proxy_url: "{{ lookup('env', 'HTTP_PROXY') | default(omit) }}"
+    mysql_packages:
+      - mysql
+
+  tasks:
+    - name: "Ensure state of mysql_packages"
+      win_chocolatey:
+        proxy_url: "{{ proxy_url }}"
+        name: "{{ mysql_package }}"
+        state: latest
+      with_items: "{{ mysql_packages }}"
+      loop_control:
+        loop_var: mysql_package

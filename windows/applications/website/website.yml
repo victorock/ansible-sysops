@@ -1,0 +1,20 @@
+- name: "Deploy website"
+  hosts: all
+
+  vars:
+    website_name: MyWinApp
+    website_version: 0.1
+    website_dir: "c:\inetpub\wwwroot\"
+    website_database_pool: "db"
+
+  tasks:
+
+    - name: "Build iisstart.htm and save to {{ website_dir }}/iistart.htm"
+      win_template:
+        src: templates/iisstart.htm.j2
+        dest: "{{ website_dir }}\iisstart.htm"
+
+    - name: "Copy application files to {{ website_dir }}"
+      win_copy:
+        src: files/
+        dest: "{{ website_dir }}"

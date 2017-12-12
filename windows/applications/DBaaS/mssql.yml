@@ -1,0 +1,19 @@
+---
+# Manage databases on existing SQL instances
+- hosts: localhost
+  connection: local
+  vars:
+    db_name: ''
+    db_host: ''
+    db_host_user: ''
+    db_host_pwd: ''
+    db_state: ''
+
+  tasks:
+    - name: "Ensure {{ db_name }} is present on {{ ansible_hostname }}"
+      mssql_db:
+        name: "{{ db_name }}"
+        login_host: "{{ db_host }}"
+        login_user: "{{ db_host_user }}"
+        login_password: "{{ db_host_pwd }}"
+        state: "{{ db_state }}"

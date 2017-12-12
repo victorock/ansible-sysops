@@ -1,0 +1,15 @@
+---
+- name: "iis"
+  hosts: all
+
+  tasks:
+    - name: "Ensure state of Web-Server"
+      win_feature:
+        name: Web-Server
+        state: present
+
+    - name: "Ensure state of NET-Framework-Features"
+      win_feature:
+        name: NET-Framework-Features
+        state: present
+        include_sub_features: yes

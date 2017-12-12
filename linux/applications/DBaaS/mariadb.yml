@@ -1,5 +1,5 @@
 ---
-- name: "mysql"
+- name: "mariadb"
   hosts: all
   become: true
 
@@ -47,7 +47,7 @@
 
     - name: "Ensure state of mariadb_packages"
       yum:
-        name: "{{ apache_package }}"
+        name: "{{ mariadb_package }}"
         state: latest
       with_items: "{{ mariadb_packages }}"
       notify: "restart mariadb_service"
