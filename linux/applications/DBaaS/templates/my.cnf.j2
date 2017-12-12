@@ -1,0 +1,44 @@
+# Configuration Managed by Ansible
+#
+# {{ ansible_managed }}
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+# Settings user and group are ignored when systemd is used.
+# If you need to run mysqld under a different user or group,
+# customize your systemd unit file for mariadb according to the
+# instructions in http://fedoraproject.org/wiki/Systemd
+
+{% if mariadb_listen_port is defined %}
+port={{ mariadb_listen_port }}
+{% endif %}
+
+{% if mariadb_bind_address is defined %}
+bind-address={{ mariadb_bind_address }}
+{% else %}
+bind-address={{ ansible_default_ipv4.address }}
+{% endif %}
+
+{% if mariadb_open_files_limit is defined %}
+open_files_limit={{ mariadb_open_files_limit }}
+{% endif %}
+
+{% if mariadb_max_connections is defined %}
+max_connections={{ mariadb_max_connections }}
+{% endif %}
+
+{% if mariadb_skip_name_resolve is undefined or mariadb_skip_name_resolve == true %}
+skip-name-resolve
+{% endif %}
+
+
+[mysqld_safe]
+log-error=/var/log/mariadb/mariadb.log
+pid-file=/var/run/mariadb/mariadb.pid
+
+#
+# include all files from the config directory
+#
+!includedir /etc/my.cnf.d

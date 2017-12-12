@@ -1,0 +1,12 @@
+apache_services:
+  - httpd
+
+apache_ports:
+  - 80/tcp
+  - 443/tcp
+
+apache_packages:
+  - httpd
+  - php
+  - php-mysql
+  - libsemanage-python

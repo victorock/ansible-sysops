@@ -1,0 +1,5 @@
+mariadb_root_pass: "{{ dbroot | default('default') }}"
+mariadb_dbname: "{{ dbname | default(omit) }}"
+mariadb_dbuser: "{{ dbuser | default(omit) }}"
+mariadb_dbpass: "{{ dbpass | default(omit) }}"
+mariadb_dbstate: "{{ dbstate | default('present') }}"

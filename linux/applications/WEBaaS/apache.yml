@@ -1,0 +1,59 @@
+---
+- name: "apache"
+  hosts: all
+
+  vars:
+    apache_services:
+      - httpd
+
+    apache_ports:
+      - 80/tcp
+      - 443/tcp
+
+    apache_packages:
+      - httpd
+      - php
+      - php-mysql
+      - libsemanage-python
+
+  handlers:
+    - name: "restart httpd"
+      service:
+        name: "httpd"
+        state: restarted
+
+  tasks:
+    - name: "Ensure state of selinux to allow httpd to connect to the network"
+      seboolean:
+        name: httpd_can_network_connect
+        persistent: yes
+        state: yes
+
+    - name: "Ensure state of apache_ports"
+      firewalld:
+        port: "{{ apache_port }}"
+        zone: public
+        permanent: yes
+        immediate: true
+        state: enabled
+      with_items: "{{ apache_ports }}"
+      loop_control:
+        loop_var: apache_port
+
+    - name: "Ensure state of apache_packages"
+      yum:
+        name: "{{ apache_package }}"
+        state: latest
+      with_items: "{{ apache_packages }}"
+      notify: "restart httpd"
+      loop_control:
+        loop_var: apache_package
+
+    - name: "Ensure state of apache_services"
+      service:
+        name: "{{ apache_service }}"
+        enabled: yes
+        state: started
+      with_items: "{{ apache_services }}"
+      loop_control:
+        loop_var: apache_service

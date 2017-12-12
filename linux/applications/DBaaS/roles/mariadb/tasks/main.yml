@@ -1,0 +1,59 @@
+- name: "Ensure state of mariadb_ports"
+  firewalld:
+    port: "{{ mariadb_port }}"
+    state: enabled
+    zone: public
+    permanent: yes
+    immediate: true
+  with_items: "{{ mariadb_ports }}"
+  loop_control:
+    loop_var: mariadb_port
+
+- name: "Ensure state of mariadb_packages"
+  yum:
+    name: "{{ apache_package }}"
+    state: latest
+  with_items: "{{ mariadb_packages }}"
+  notify: "restart mariadb_service"
+  loop_control:
+    loop_var: mariadb_package
+
+- name: "Ensure state of mariadb_services"
+  service:
+    name: "{{ mariadb_service }}"
+    enabled: yes
+    state: started
+  with_items: "{{ mariadb_services }}"
+  loop_control:
+    loop_var: mariadb_service
+
+- name: "Ensure state of mariadb configuration"
+  template:
+    src: templates/my.cnf.j2
+    dest: /etc/my.cnf
+    backup: yes
+  notify: "restart mariadb"
+
+- name: "Ensure state of root password"
+  mysql_user:
+    name: root
+    password: "{{ mariadb_root_pass }}"
+    check_implicit_admin: true
+
+- name: "Ensure state of database"
+  mysql_db:
+    name: "{{ mariadb_dbname }}"
+    encoding: utf8
+    state: "{{ mariadb_dbstate }}"
+  when: mariadb_dbname is defined
+
+- name: "Ensure state of user"
+  mysql_user:
+    name: "{{ mariadb_dbuser }}"
+    host: '%'
+    password: "{{ mariadb_dbpass }}"
+    priv: '*.*:ALL'
+    state: "{{ mariadb_state }}"
+  when:
+    - mariadb_dbuser is defined
+    - mariadb_dbpass is defined

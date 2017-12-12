@@ -1,0 +1,21 @@
+mariadb_bind_address: 0.0.0.0
+mariadb_listen_port: 3306
+mariadb_skip_name_resolve: true
+mariadb_open_files_limit: 2048
+mariadb_max_connections: 1024
+
+mariadb_services:
+  - mariadb
+
+mariadb_ports:
+  - 1186/tcp
+  - 1186/udp
+  - 2273/tcp
+  - 2273/udp
+  - 3306/udp
+  - 3306/tcp
+
+mariadb_packages:
+  - mariadb
+  - mariadb-server
+  - MySQL-python

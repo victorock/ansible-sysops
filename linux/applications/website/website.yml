@@ -1,0 +1,35 @@
+- name: "Deploy website"
+  hosts: all
+
+  vars:
+    website_name: website
+    website_version: 0.1
+    website_path: "/var/www/html"
+    website_user_owner: "httpd"
+    website_user_group: "httpd"
+    website_database_pool: "db"
+
+  tasks:
+    - set_fact:
+        website_database_servers: "{{ groups[website_database_pool] | list }}"
+
+    - name: "Ensure the state of {{ website_dir }} as folder with proper ownership"
+      file:
+        path: "{{ website_dir }}"
+        owner: "{{ website_user_owner }}"
+        group: "{{ website_user_group }}"
+        state: directory
+
+    - name: "Build index and save to {{ website_dir }}/index.php"
+      template:
+        src: "templates/index.php.j2"
+        dest: "{{ website_dir }}/index.php"
+        owner: "{{ website_user_owner }}"
+        group: "{{ website_user_group }}"
+
+    - name: "Copy application files to {{ website_dir }}"
+      copy:
+        src: files/
+        dest: "{{ website_dir }}"
+        owner: "{{ website_user_owner }}"
+        group: "{{ website_user_group }}"
