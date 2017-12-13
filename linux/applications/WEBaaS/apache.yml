@@ -23,23 +23,6 @@
         state: restarted
 
   tasks:
-#    - name: "Ensure state of selinux to allow httpd to connect to the network"
-#      seboolean:
-#        name: httpd_can_network_connect
-#        persistent: yes
-#        state: yes
-
-#    - name: "Ensure state of apache_ports"
-#      firewalld:
-#        port: "{{ apache_port }}"
-#        zone: public
-#        permanent: yes
-#        immediate: true
-#        state: enabled
-#      with_items: "{{ apache_ports }}"
-#      loop_control:
-#        loop_var: apache_port
-
     - name: "Ensure state of apache_packages"
       yum:
         name: "{{ apache_package }}"
@@ -57,3 +40,20 @@
       with_items: "{{ apache_services }}"
       loop_control:
         loop_var: apache_service
+
+#    - name: "Ensure state of selinux to allow httpd to connect to the network"
+#      seboolean:
+#        name: httpd_can_network_connect
+#        persistent: yes
+#        state: yes
+
+#    - name: "Ensure state of apache_ports"
+#      firewalld:
+#        port: "{{ apache_port }}"
+#        zone: public
+#        permanent: yes
+#        immediate: true
+#        state: enabled
+#      with_items: "{{ apache_ports }}"
+#      loop_control:
+#        loop_var: apache_port
