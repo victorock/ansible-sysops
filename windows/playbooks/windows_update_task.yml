@@ -9,3 +9,6 @@
           - SecurityUpdates
           - CriticalUpdates
           - UpdateRollups
+          - Updates
+          - ServicePacks
+        state: installed
