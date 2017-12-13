@@ -1,0 +1,21 @@
+- name: "openticket"
+  hosts: all
+
+  vars:
+    webservice_url: https://servicedesk.acme.com/api/2/tickets/
+    webservice_username: 3092183091283120398123221
+    webservice_password: !Amazing_Password!
+    webservice_body: "{{ lookup('file','files/ticket.json') }}"
+
+  tasks:
+    - name: "Create ticket in service desk system"
+      delegate_to: localhost
+      uri:
+        url: "{{ webservice_url }}"
+        method: POST
+        user: "{{ webservice_username }}"
+        password: "{{ webservice_password }}"
+        body: "{{ webservice_body }}"
+        force_basic_auth: yes
+        status_code: 201
+        body_format: json
