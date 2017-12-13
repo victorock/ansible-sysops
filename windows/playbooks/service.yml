@@ -2,14 +2,14 @@
   hosts: all
 
   vars:
-    name: RSCDsvc
-    start_mode: auto
-    state: started
-    comment: BMC BladeLogic Agent
+    win_service_name: RSCDsvc
+    win_service_start_mode: auto
+    win_service_state: started
+    win_service_comment: BMC BladeLogic Agent
 
   tasks:
     - name: "Ensure state of service"
       win_service:
-        name: "{{ name }}"
-        start_mode: "{{ start_mode }}"
-        state: "{{ state }}"
+        name: "{{ win_service_name }}"
+        start_mode: "{{ win_service_start_mode }}"
+        state: "{{ win_service_state }}"
