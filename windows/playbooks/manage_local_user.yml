@@ -9,7 +9,7 @@
       - Users
 
   tasks:
-    - name: "Ensure state of {{ username }} as present"
+    - name: "Ensure state of {{ win_user_name }} as present"
       win_user:
         name: "{{ win_user_name }}"
         password: "{{ win_user_password }}"
@@ -17,7 +17,7 @@
         state: "{{ win_user_state }}"
       when: win_user_state == 'present'
 
-    - name: "Ensure state of {{ username }} as absent"
+    - name: "Ensure state of {{ win_user_name }} as absent"
       win_user:
         name: "{{ win_user_name }}"
         state: "{{ win_user_state }}"
