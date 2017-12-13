@@ -5,6 +5,9 @@
 
   tasks:
     - name: Update packages
-      package:
+      yum:
         name: '*'
+        update_cache: yes
+        validate_certs: no
+        security: yes
         state: latest

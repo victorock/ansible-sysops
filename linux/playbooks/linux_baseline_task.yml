@@ -50,7 +50,10 @@
     - name: "Install packages"
       yum:
         name: "{{ linux_package }}"
+        update_cache: yes
+        validate_certs: no
         state: present
+        security: yes
       with_items: "{{ linux_packages }}"
       loop_control:
         loop_var: linux_package
