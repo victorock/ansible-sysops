@@ -4,14 +4,18 @@
   become: true
 
   vars:
-    proxy_url: "{{ lookup('env', 'HTTP_PROXY') | default(omit) }}"
+    proxy_url: "{{ lookup('env', 'HTTP_PROXY_URL') | default(omit) }}"
+    proxy_username: "{{ lookup('env', 'HTTP_PROXY_USERNAME') | default(omit) }}"
+    proxy_password: "{{ lookup('env', 'HTTP_PROXY_PASSWORD') | default(omit) }}"
     mysql_packages:
       - mysql
 
   tasks:
     - name: "Ensure state of mysql_packages"
       win_chocolatey:
-        proxy_url: "{{ proxy_url }}"
+        proxy_url: "{{ proxy_url | default(omit) }}"
+        proxy_username: "{{ proxy_username | default(omit) }}"
+        proxy_password: "{{ proxy_password | default(omit) }}"
         name: "{{ mysql_package }}"
         state: latest
       with_items: "{{ mysql_packages }}"

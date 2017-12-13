@@ -5,8 +5,8 @@
 
   vars:
     linux_update: no
-#    linux_rhs_password: username
-#    linux_rhs_password: password
+#    linux_rhs_org_id: ''
+#    linux_rhs_activation_key: ''
 
   tasks:
     - name: "victorock.linux"
