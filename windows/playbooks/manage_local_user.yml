@@ -13,8 +13,7 @@
       win_user:
         name: "{{ username }}"
         password: "{{ password }}"
-        groups:
-          - "{{ groups }}"
+        groups: "{{ groups | join(',') }}"
         state: "{{ state }}"
       when: state == 'present'
 
