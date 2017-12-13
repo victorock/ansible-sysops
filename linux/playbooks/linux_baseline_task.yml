@@ -15,6 +15,7 @@
       - rhel-7-server-rh-common-rpms
       - rhel-7-server-optional-rpms
 
+    epel_state: absent
 #    linux_rhs_org_id: ''
 #    linux_rhs_activation_key: ''
 
@@ -45,7 +46,7 @@
         baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
         gpgcheck: no
         enabled: yes
-        state: present
+        state: "{{ epel_state }}"
 
     - name: "Install packages"
       yum:
