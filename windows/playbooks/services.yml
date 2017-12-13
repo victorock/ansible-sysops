@@ -3,8 +3,8 @@
 
   vars:
     services:
-      - { service: RSCDsvc, state: present, start_mode: auto, comment: BMC BladeLogic Agent }
-      - { service: VMtools, state: present, start_mode: auto, comment: VMware Tools }
+      - { service: RSCDsvc, state: started, start_mode: auto, comment: BMC BladeLogic Agent }
+      - { service: VMtools, state: started, start_mode: auto, comment: VMware Tools }
 
   tasks:
     - name: "Ensure state of services"

@@ -4,7 +4,7 @@
   vars:
     name: RSCDsvc
     start_mode: auto
-    state: present
+    state: started
     comment: BMC BladeLogic Agent
 
   tasks:
