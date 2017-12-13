@@ -2,11 +2,12 @@
   hosts: all
 
   vars:
-    win_user_name: "victor"
+    win_user_name: "ansible"
     win_user_password: "_!Sup3r_S3cret!_"
     win_user_state: present
     win_user_groups:
       - Users
+      - Administrators
 
   tasks:
     - name: "Ensure state of {{ win_user_name }} as present"
