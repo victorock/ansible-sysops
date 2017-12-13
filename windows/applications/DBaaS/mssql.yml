@@ -2,6 +2,7 @@
 # Manage databases on existing SQL instances
 - hosts: localhost
   connection: local
+
   vars:
     db_name: ''
     db_host: ''

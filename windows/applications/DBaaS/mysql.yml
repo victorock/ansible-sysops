@@ -1,7 +1,6 @@
 ---
 - name: "mysql"
   hosts: all
-  become: true
 
   vars:
     proxy_url: "{{ lookup('env', 'HTTP_PROXY_URL') | default(omit) }}"
