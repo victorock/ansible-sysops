@@ -29,16 +29,16 @@
 #        persistent: yes
 #        state: yes
 
-    - name: "Ensure state of apache_ports"
-      firewalld:
-        port: "{{ apache_port }}"
-        zone: public
-        permanent: yes
-        immediate: true
-        state: enabled
-      with_items: "{{ apache_ports }}"
-      loop_control:
-        loop_var: apache_port
+#    - name: "Ensure state of apache_ports"
+#      firewalld:
+#        port: "{{ apache_port }}"
+#        zone: public
+#        permanent: yes
+#        immediate: true
+#        state: enabled
+#      with_items: "{{ apache_ports }}"
+#      loop_control:
+#        loop_var: apache_port
 
     - name: "Ensure state of apache_packages"
       yum:
