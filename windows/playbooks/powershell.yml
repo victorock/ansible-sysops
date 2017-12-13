@@ -11,4 +11,4 @@
       win_shell: .\{{ powershell_name }}.ps1 {{ powershell_options }} >> {{ powershell_name|quote }}-output.txt
       args:
         chdir: "{{ powershell_dir }}"
-        creates: "{{ powershell_script }}-output.txt"
+        creates: "{{ powershell_name }}-output.txt"
