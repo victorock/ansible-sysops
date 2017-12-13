@@ -1,0 +1,56 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: yes
+
+  vars:
+    linux_packages:
+      - vim-minimal
+      - git
+      - wget
+
+    linux_rhs_repos:
+      - rhel-7-server-rpms
+      - rhel-7-server-extras-rpms
+      - rhel-7-server-rh-common-rpms
+      - rhel-7-server-optional-rpms
+
+#    linux_rhs_org_id: ''
+#    linux_rhs_activation_key: ''
+
+  tasks:
+    - name: "Ensure state of subscription to RHN when credentials are provided"
+      redhat_subscription:
+        org_id: "{{ linux_rhs_org_id }}"
+        activationkey: "{{ linux_rhs_activation_key }}"
+        autosubscribe: true
+        state: present
+      when:
+        - linux_rhs_org_id is defined
+        - linux_rhs_activation_key is defined
+
+    - name: "Ensure state of RHN repos when registered"
+      command: subscription-manager repos --enable={{ linux_rhs_repo|quote }}
+      with_items: "{{ linux_rhs_repos }}"
+      loop_control:
+        loop_var: linux_rhs_repo
+      when:
+        - linux_rhs_org_id is defined
+        - linux_rhs_activation_key is defined
+
+    - name: "Ensure state of EPEL repository"
+      yum_repository:
+        name: epel
+        description: EPEL YUM REPO
+        baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+        gpgcheck: no
+        enabled: yes
+        state: present
+
+    - name: "Install packages"
+      yum:
+        name: "{{ linux_package }}"
+        state: present
+      with_items: "{{ linux_packages }}"
+      loop_control:
+        loop_var: linux_package
