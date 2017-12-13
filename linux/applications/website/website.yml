@@ -8,8 +8,8 @@
     website_user_owner: "apache"
     website_user_group: "apache"
     website_database_pool: "linuxdb"
-    website_dbuser: "website"
-    website_dbpass: "Password123!"
+    website_dbuser: "{{ dbuser | default('website') }}"
+    website_dbpass: "{{ dbpass | default('Password123!') }}'"
 
 
   tasks:

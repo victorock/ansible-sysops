@@ -6,8 +6,8 @@
     website_version: 0.1
     website_dir: "c:\\inetpub\\wwwroot\\"
     website_database_pool: "windb"
-    website_dbuser: "website"
-    website_dbpass: "Password123!"
+    website_dbuser: "{{ dbuser | default('website') }}"
+    website_dbpass: "{{ dbpass | default('Password123!') }}'"
 
   tasks:
     - set_fact:
