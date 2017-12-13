@@ -1,0 +1,18 @@
+- name: "services"
+  hosts: all
+
+  vars:
+    services:
+      - { service: RSCDsvc, state: stopped, enabled: no, comment: BMC BladeLogic Agent }
+      - { service: VMtools, state: started, enabled: yes, comment: VMware Tools }
+
+  tasks:
+    - name: "Ensure state of services"
+      service:
+        name: "{{ lin_service.service }}"
+        enabled: "{{ lin_service.enabled }}"
+        state: "{{ lin_service.state }}"
+      with_items: "{{ services }}"
+      loop_control:
+        loop_var: lin_service
+        label: "lin_service {{ lin_service.service }}"
