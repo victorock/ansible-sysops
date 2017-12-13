@@ -10,6 +10,7 @@
     mariadb_dbuser: "{{ dbuser | default(omit) }}"
     mariadb_dbpass: "{{ dbpass | default(omit) }}"
     mariadb_dbstate: "{{ dbstate | default('present') }}"
+    mariadb_dbuser_state: "{{ mariadb_dbstate }}"
 
     mariadb_services:
       - mariadb
@@ -85,7 +86,7 @@
         host: '%'
         password: "{{ mariadb_dbpass }}"
         priv: '*.*:ALL'
-        state: "{{ mariadb_state }}"
+        state: "{{ mariadb_dbuser_state }}"
       when:
         - mariadb_dbuser is defined
         - mariadb_dbpass is defined
