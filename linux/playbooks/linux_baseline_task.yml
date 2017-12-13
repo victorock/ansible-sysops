@@ -8,6 +8,8 @@
       - vim-minimal
       - git
       - wget
+      - libselinux-python
+      - libsemanage-python
 
     linux_rhs_repos:
       - rhel-7-server-rpms
