@@ -2,13 +2,16 @@
 - hosts: all
   gather_facts: yes
 
+  vars:
+    win_updates_categories:
+      - SecurityUpdates
+      - CriticalUpdates
+      - UpdateRollups
+      - Updates
+      - ServicePacks
+
   tasks:
     - name: "Update packages"
       win_updates:
-        category_names:
-          - SecurityUpdates
-          - CriticalUpdates
-          - UpdateRollups
-          - Updates
-          - ServicePacks
+        category_names: "{{ win_updates_categories }}"
         state: installed

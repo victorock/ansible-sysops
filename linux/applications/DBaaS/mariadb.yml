@@ -59,6 +59,13 @@
         backup: yes
       notify: "restart mariadb"
 
+    - name: "Ensure user has credentials file in ~/.my.cnf"
+      template:
+        src: templates/credentials.j2
+        dest: ~/.my.cnf
+        mode: 600
+        backup: yes
+
     - name: "Ensure state of root password"
       mysql_user:
         name: root
