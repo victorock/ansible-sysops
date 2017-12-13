@@ -15,10 +15,10 @@
         password: "{{ password }}"
         groups: "{{ groups }}"
         state: "{{ state }}"
-      when: "state is 'present'"
+      when: state == 'present'
 
     - name: "Ensure state of {{ username }} as absent"
       win_user:
         name: "{{ username }}"
         state: "{{ state }}"
-      when: "state is 'absent'"
+      when: state == 'absent'
