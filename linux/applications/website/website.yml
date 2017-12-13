@@ -7,7 +7,10 @@
     website_dir: "/var/www/html"
     website_user_owner: "httpd"
     website_user_group: "httpd"
-    website_database_pool: "db"
+    website_database_pool: "linuxdb"
+    website_dbuser: "website"
+    website_dbpass: "Password123!"
+
 
   tasks:
     - set_fact:

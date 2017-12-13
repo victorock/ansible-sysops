@@ -1,0 +1,14 @@
+- name: "powershell"
+  hosts: all
+
+  vars:
+    powershell_dir: "C:\\Users\\Administrator\\Desktop"
+    powershell_name: "ConfigureRemotingForAnsible"
+    powershell_options: "-CertValidityDays 100"
+
+  tasks:
+    - name: "Run powershell"
+      win_shell: .\{{ powershell_name }}.ps1 {{ powershell_options }} >> {{ powershell_name|quote }}-output.txt
+      args:
+        chdir: "{{ powershell_dir }}"
+        creates: "{{ powershell_script }}-output.txt"

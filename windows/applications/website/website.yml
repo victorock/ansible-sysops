@@ -5,7 +5,9 @@
     website_name: MyWinApp
     website_version: 0.1
     website_dir: "c:\inetpub\wwwroot\"
-    website_database_pool: "db"
+    website_database_pool: "windb"
+    website_dbuser: "website"
+    website_dbpass: "Password123!"
 
   tasks:
 

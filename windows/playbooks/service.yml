@@ -1,0 +1,15 @@
+- name: "service"
+  hosts: all
+
+  vars:
+    name: RSCDsvc
+    start_mode: auto
+    state: present
+    comment: BMC BladeLogic Agent
+
+  tasks:
+    - name: "Ensure state of service"
+      win_service:
+        name: "{{ name }}"
+        start_mode: "{{ start_mode }}"
+        state: "{{ state }}"

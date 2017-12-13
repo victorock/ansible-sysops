@@ -1,16 +1,13 @@
-- name: "PowerShell Module"
+- name: "powershell_dsc"
   hosts: all
 
   vars:
-    nuget_repository_url: https://nuget.acme.com/
-    nuget_repository_name: MyPrivateRepo
-    name: PowershellModule
-    state: present
+    windowsfeature_name: "telnet-client"
 
   tasks:
-    - name: "Ensure state of powershell module"
-      win_psmodule:
-        repository: "{{ nuget_repository_name }}"
-        url: "{{ nuget_repository_url }}"
-        name: "{{ name }}"
-        state: "{{ state }}"
+  ## https://docs.microsoft.com/en-us/powershell/dsc/windowsfeatureresource
+    - name: "Ensure state of Windows Feature"
+      win_dsc:
+        resource_name: windowsfeature
+        name: "{{ windowsfeature_name }}"
+        ensure: present
