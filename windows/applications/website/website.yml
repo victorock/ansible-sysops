@@ -10,6 +10,8 @@
     website_dbpass: "Password123!"
 
   tasks:
+    - set_fact:
+        website_database_servers: "{{ groups[website_database_pool] | list }}"
 
     - name: "Build iisstart.htm and save to {{ website_dir }}\\iistart.htm"
       win_template:
