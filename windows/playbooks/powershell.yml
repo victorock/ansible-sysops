@@ -4,7 +4,7 @@
   vars:
     powershell_dir: "C:\\Users\\Administrator\\Desktop"
     powershell_name: "ConfigureRemotingForAnsible"
-    powershell_options: "-CertValidityDays 100"
+    powershell_options: "-CertValidityDays 100 -Verbose"
 
   tasks:
     - name: "Run powershell"
