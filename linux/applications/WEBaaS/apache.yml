@@ -23,11 +23,11 @@
         state: restarted
 
   tasks:
-    - name: "Ensure state of selinux to allow httpd to connect to the network"
-      seboolean:
-        name: httpd_can_network_connect
-        persistent: yes
-        state: yes
+#    - name: "Ensure state of selinux to allow httpd to connect to the network"
+#      seboolean:
+#        name: httpd_can_network_connect
+#        persistent: yes
+#        state: yes
 
     - name: "Ensure state of apache_ports"
       firewalld:
