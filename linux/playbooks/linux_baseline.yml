@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: yes
+
+  vars:
+    linux_update: no
+#    linux_rhs_password: username
+#    linux_rhs_password: password
+
+  tasks:
+    - name: "victorock.linux"
+      include_role:
+         name: victorock.linux

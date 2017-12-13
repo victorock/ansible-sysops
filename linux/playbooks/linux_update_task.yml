@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Update packages
+      package:
+        name: '*'
+        state: latest

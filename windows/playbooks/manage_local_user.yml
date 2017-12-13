@@ -1,0 +1,24 @@
+- name: "manage_local_user"
+  hosts: all
+
+  vars:
+    username: "victor"
+    password: "_!Sup3r_S3cret!_"
+    state: present
+    groups:
+      - Users
+
+  tasks:
+    - name: "Ensure state of {{ username }} as present"
+      win_user:
+        name: "{{ username }}"
+        password: "{{ password }}"
+        groups: "{{ groups }}"
+        state: "{{ state }}"
+      when: "state is 'present'"
+
+    - name: "Ensure state of {{ username }} as absent"
+      win_user:
+        name: "{{ username }}"
+        state: "{{ state }}"
+      when: "state is 'absent'"
