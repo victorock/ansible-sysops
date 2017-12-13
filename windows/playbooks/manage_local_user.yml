@@ -2,23 +2,23 @@
   hosts: all
 
   vars:
-    username: "victor"
-    password: "_!Sup3r_S3cret!_"
-    state: present
-    groups:
+    win_user_name: "victor"
+    win_user_password: "_!Sup3r_S3cret!_"
+    win_user_state: present
+    win_user_groups:
       - Users
 
   tasks:
     - name: "Ensure state of {{ username }} as present"
       win_user:
-        name: "{{ username }}"
-        password: "{{ password }}"
-        groups: "{{ groups | join(',') }}"
-        state: "{{ state }}"
-      when: state == 'present'
+        name: "{{ win_user_name }}"
+        password: "{{ win_user_password }}"
+        groups: "{{ win_user_groups }}"
+        state: "{{ win_user_state }}"
+      when: win_user_state == 'present'
 
     - name: "Ensure state of {{ username }} as absent"
       win_user:
-        name: "{{ username }}"
-        state: "{{ state }}"
-      when: state == 'absent'
+        name: "{{ win_user_name }}"
+        state: "{{ win_user_state }}"
+      when: win_user_state == 'absent'
