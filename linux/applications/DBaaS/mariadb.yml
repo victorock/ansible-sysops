@@ -34,17 +34,6 @@
         state: restarted
 
   tasks:
-    - name: "Ensure state of mariadb_ports"
-      firewalld:
-        port: "{{ mariadb_port }}"
-        state: enabled
-        zone: public
-        permanent: yes
-        immediate: true
-      with_items: "{{ mariadb_ports }}"
-      loop_control:
-        loop_var: mariadb_port
-
     - name: "Ensure state of mariadb_packages"
       yum:
         name: "{{ mariadb_package }}"
@@ -93,3 +82,14 @@
       when:
         - mariadb_dbuser is defined
         - mariadb_dbpass is defined
+
+#    - name: "Ensure state of mariadb_ports"
+#      firewalld:
+#        port: "{{ mariadb_port }}"
+#        state: enabled
+#        zone: public
+#        permanent: yes
+#        immediate: true
+#      with_items: "{{ mariadb_ports }}"
+#      loop_control:
+#        loop_var: mariadb_port
