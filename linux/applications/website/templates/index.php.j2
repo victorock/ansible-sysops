@@ -54,7 +54,8 @@
 					Ansible Tower <br /><br />
 				</h1>
 				<div class="text-center">
-					<a onclick="scrollToTarget('#bloc-1')" class="btn-wire btn btn-xl fadeInUp animDelay02 wire-btn-c-2 v animated btn_color_m"><span class="et-icon-refresh icon-spacer btn_color_m"></span>Analyser le service web</a>
+					<a onclick="scrollToTarget('#bloc-1')" class="btn-wire btn btn-xl fadeInUp animDelay02 wire-btn-c-2 v animated btn_color_m">
+            <span class="et-icon-refresh icon-spacer btn_color_m"></span>Health check the webapp</a>
 				</div>
 			</div>
 		</div>
@@ -75,10 +76,12 @@
 			<div class="col-sm-12">
 				<span class="li_world pull-left icon-lg"></span>
 				<h3 class="mg-md text-center ">
-					Webserver:
-					<br />{{ inventory_hostname | quote }}<br />
+					Webserver: <br />
 				</h3>
 			</div>
+      <div class="col-sm-12">
+				{{ inventory_hostname }}<br />
+      </div>
 		</div>
 		<div class="row voffset fadeIn animDelay1 animated">
 			<div class="col-sm-12">
