@@ -102,9 +102,9 @@
 			</div>
 			<div class="col-sm-12">
       {% for database_server in website_database_servers %}
-        '{{ hostvars[database_server].inventory_hostname }}' : <br />
+        {{ hostvars[database_server].inventory_hostname | quote }} : <br />
   			<?php
-  				$link = mysqli_connect({{ hostvars[database_server].inventory_hostname | quote }}, {{ website_dbuser | quote }}, {{ website_dbpass | quote }}) or die(mysqli_connect_error($link));
+  				$link = mysqli_connect('{{ hostvars[database_server].inventory_hostname }}', '{{ website_dbuser }}', '{{ website_dbpass }}') or die(mysqli_connect_error($link));
           $res = mysqli_query($link, "SHOW DATABASES;");
   				while ($row = mysqli_fetch_assoc($res))
   				{
