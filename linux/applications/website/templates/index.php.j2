@@ -76,7 +76,7 @@
 				<span class="li_world pull-left icon-lg"></span>
 				<h3 class="mg-md text-center ">
 					Webserver:
-					<br />{{ inventory_hostname }}<br />
+					<br />{{ inventory_hostname | quote }}<br />
 				</h3>
 			</div>
 		</div>
@@ -84,12 +84,12 @@
 			<div class="col-sm-12">
 				<span class="li_data pull-left icon-lg"></span>
 				<h3 class="mg-md  text-center">
-					The servers in database pool "{{ website_database_pool }}" are :<br />
+					The servers in database pool {{ website_database_pool | quote }} are :<br />
 				</h3>
 			</div>
       <div class="col-sm-12">
       {% for database_server in website_database_servers %}
-        '{{ hostvars[database_server].inventory_hostname }}'<br />
+        {{ hostvars[database_server].inventory_hostname | quote }}<br />
       {% endfor %}
       </div>
 		</div>
@@ -104,7 +104,7 @@
       {% for database_server in website_database_servers %}
         '{{ hostvars[database_server].inventory_hostname }}' : <br />
   			<?php
-  				$link = mysqli_connect('{{ hostvars[database_server].inventory_hostname }}', '{{ website_dbuser }}', '{{ website_dbpass }}') or die(mysqli_connect_error($link));
+  				$link = mysqli_connect({{ hostvars[database_server].inventory_hostname | quote }}, {{ website_dbuser | quote }}, {{ website_dbpass | quote }}) or die(mysqli_connect_error($link));
           $res = mysqli_query($link, "SHOW DATABASES;");
   				while ($row = mysqli_fetch_assoc($res))
   				{
