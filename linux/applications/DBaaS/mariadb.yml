@@ -58,7 +58,7 @@
         src: templates/my.cnf.j2
         dest: /etc/my.cnf
         backup: yes
-      notify: "restart mariadb"
+      notify: "restart mariadb_service"
 
     - name: "Ensure user has credentials file in ~/.my.cnf"
       template:
