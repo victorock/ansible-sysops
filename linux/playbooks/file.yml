@@ -1,0 +1,18 @@
+- name: "file"
+  hosts: all
+
+  vars:
+    file_path: /etc/foo.conf
+    file_owner: foo
+    file_group: foo
+    file_mode: 0644
+    file_state: touch
+
+  tasks:
+    - name: "Ensure file state"
+      file:
+        path: "{{ file_path }}"
+        owner: "{{ file_owner }}"
+        group: "{{ file_group }}"
+        mode: "{{ file_mode }}"
+        state: "{{ file_state }}"

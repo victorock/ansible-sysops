@@ -1,0 +1,9 @@
+- name: "command"
+  hosts: all
+
+  vars:
+    command: ps -ef
+
+  tasks:
+    - name: "Execute command"
+      command: "{{ command }}"

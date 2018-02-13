@@ -1,0 +1,14 @@
+- name: "lineinfile"
+  hosts: all
+
+  vars:
+    lineinfile_path: /etc/selinux/config
+    lineinfile_regexp: '^SELINUX='
+    lineinfile_line: 'SELINUX=enforcing'
+
+  tasks:
+    - name: "Ensure line in file"
+      lineinfile:
+        path: "{{ lineinfile_path }}"
+        regexp: "{{ lineinfile_regexp }}"
+        line: "{{ lineinfile_line }}"
