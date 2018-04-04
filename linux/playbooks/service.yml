@@ -2,10 +2,10 @@
   hosts: all
 
   vars:
-    lin_service_name: VMtools
-    lin_service_enabled: yes
-    lin_service_state: started
-    lin_service_comment: VMware Tools
+    service_name: "{{ lin_service_name | default('VMtools') }}"
+    service_enabled: "{{ lin_service_enabled | default('yes') }}"
+    service_state: "{{ lin_service_state | default('started') }}"
+    service_comment: "{{ lin_service_comment | default('VMware Tools') }}"
 
   tasks:
     - name: "Ensure state of service"
