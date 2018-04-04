@@ -7,7 +7,7 @@
     website_dir: "/var/www/html"
     website_user_owner: "apache"
     website_user_group: "apache"
-    website_database_pool: "linuxdb"
+    website_database_pool: "{{ dbpool | default('website') }}"
     website_dbuser: "{{ dbuser | default('website') }}"
     website_dbpass: "{{ dbpass | default('Password123!') }}'"
 
