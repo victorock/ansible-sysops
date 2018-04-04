@@ -10,6 +10,6 @@
   tasks:
     - name: "Ensure state of service"
       service:
-        name: "{{ lin_service_name }}"
-        enabled: "{{ lin_service_enabled }}"
-        state: "{{ lin_service_state }}"
+        name: "{{ service_name }}"
+        enabled: "{{ service_enabled }}"
+        state: "{{ service_state }}"
