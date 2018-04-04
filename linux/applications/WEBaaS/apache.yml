@@ -25,6 +25,7 @@
   tasks:
     - name: "Ensure state of apache_packages"
       yum:
+        update_cache: yes
         name: "{{ apache_package }}"
         state: latest
       with_items: "{{ apache_packages }}"
