@@ -10,7 +10,7 @@
     disk_size_gb: 20
     machine_environment: "staging"
     machine_class: "unknown"
-    zone: "europe-west1-b"
+    zone: "europe-west1-d"
     tags:
       - "{{ machine_environment }}"
       - "{{ machine_class }}"
