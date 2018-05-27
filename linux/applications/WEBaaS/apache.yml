@@ -26,12 +26,10 @@
     - name: "Ensure state of apache_packages"
       yum:
         update_cache: yes
-        name: "{{ apache_package }}"
+        name: "{{ apache_packages }}"
         state: latest
       with_items: "{{ apache_packages }}"
       notify: "restart httpd"
-      loop_control:
-        loop_var: apache_package
 
     - name: "Ensure state of apache_services"
       service:

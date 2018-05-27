@@ -11,7 +11,7 @@
     machine_environment: "staging"
     machine_class: "unknown"
     machine_version: "unknown"
-    zone: "europe-west1-b"
+    zone: "	eu-central-1"
     tags:
       Name: "{{ name }}"
       Environment: "{{ machine_environment }}"
@@ -19,11 +19,11 @@
       Version: "{{ machine_version }}"
 
   tasks:
-    - name: "Find the image [ {{ ec2_cloud_ami_find_name }} ] in region [ {{ ec2_cloud_ami_find_region }} ]"
+    - name: "Find the image [ {{ image }} ] in region [ {{ zone }} ]"
       ec2_ami_find:
-        region: "{{ ec2_cloud_ami_find_region }}"
+        region: "{{ zone }}"
         virtualization_type: hvm
-        name: "{{ ec2_cloud_ami_find_name }}"
+        name: "{{ image }}"
         no_result_action: fail
         sort: name
         sort_order: descending
@@ -39,12 +39,12 @@
         region: "{{ ec2_cloud_instance_region }}"
         vpc_subnet_id: "{{ ec2_cloud_instance_vpc_subnet_id }}"
         group: "{{ ec2_cloud_instance_group_name }}"
-        exact_count: "{{ ec2_cloud_instance_exact_count }}"
+        exact_count: "1"
         image: "{{ image_id }}"
-        instance_type: "{{ ec2_cloud_instance_type }}"
-        key_name: "{{ ec2_cloud_instance_key_name }}"
-        instance_tags: "{{ ec2_cloud_instance_tags }}"
-        count_tag: "{{ ec2_cloud_instance_count_tag }}"
+        instance_type: "{{ machine_type }}"
+        key_name: "default"
+        instance_tags: "{{ tags }}"
+        count_tag: "{{ tags }}"
         volumes:
           - device_name: /dev/sda1
             volume_type: gp2
