@@ -1,0 +1,34 @@
+- name: "Manipulate tags of images in Google Compute Engine"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+#  vars:
+#    gce_instance:         "website01"
+#    gce_instance_pattern: "website*"
+#    gce_add_tags:         []
+#    gce_remove_tags:      []
+#    gce_zone:             "europe-west1-d"
+
+  tasks:
+    - name: "Ensure presence of tags for instance or instance_pattern"
+      gce_tag:
+        instance_name:    "{{ gce_instance          | default(omit)             }}"
+        instance_pattern: "{{ gce_instance_pattern  | default(omit)             }}"
+        zone:             "{{ gce_zone              | default('europe-west1-d') }}"
+        tags:             "{{ gce_add_tags          | default(mandatory)        }}"
+        state:            "present"
+      when:
+        - gce_add_tags is defined
+        - gce_add_tags|int > 0
+
+    - name: "Ensure absence of tags for instance or instance_pattern"
+      gce_tag:
+        instance_name:    "{{ gce_instance          | default(omit)             }}"
+        instance_pattern: "{{ gce_instance_pattern  | default(omit)             }}"
+        zone:             "{{ gce_zone              | default('europe-west1-d') }}"
+        tags:             "{{ gce_remove_tags       | default(mandatory)        }}"
+        state:            "absent"
+      when:
+        - gce_remove_tags is defined
+        - gce_remove_tags|int > 0
