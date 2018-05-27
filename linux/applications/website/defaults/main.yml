@@ -1,0 +1,8 @@
+website_name: MyLinuxApp
+website_version: 0.1
+website_dir: "/var/www/html"
+website_user_owner: "apache"
+website_user_group: "apache"
+website_database_pool: "website"
+website_dbuser: "website"
+website_dbpass: "Passw0rd123"
