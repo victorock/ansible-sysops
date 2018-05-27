@@ -4,38 +4,55 @@
   gather_facts: false
 
   vars:
-    name: "MyRHEL7"
-    image: "rhel-7"
-    machine_type: "n1-standard-1"
-    disk_size_gb: 20
+    name:             "MyRHEL7"
+    image:            "rhel-7"
+    machine_type:     "n1-standard-1"
+    disk_size_gb:     20
     machine_tags:
-      - dev
-      - web
-      - database
-    application_tags:
-      - website
-      - release_0_1
-    zone: "europe-west1-d"
-    gce_tags: "{{ machine_tags + application_tags}}"
+      -               staging
+    application_tags: []
+    gce_zone:         "europe-west1-d"
 
   tasks:
+    - name: "Ensure gce_tags has application and machine tags"
+      set_fact:
+        gce_tags: "{{ machine_tags + application_tags }}"
+
+    - name: "Ensure intermediary machine states when present"
+      when: machine_state|default('present') == 'present'
+      set_fact:
+        machine_states:
+          - present
+          - started
+
+    - name: "Ensure intermediary machine states when absent"
+      when: machine_state|default('present') == 'absent'
+      set_fact:
+        machine_states:
+          - absent
+
     - name: "Ensure state of virtual instance in google compute engine"
       gce:
-        name: "{{ name }}"
-        zone: "{{ zone }}"
-        machine_type: "{{ machine_type }}"
-        image: "{{ image }}"
-        disk_size: "{{ disk_size_gb }}"
-        tags: "{{ gce_tags }}"
-        num_instances: "{{ num_instances | default(omit) }}"
-        state: "{{ state }}"
-      register: r_gce
-      with_items:
-        - present
-        - started
+        name:           "{{ name                          }}"
+        zone:           "{{ gce_zone                      }}"
+        machine_type:   "{{ machine_type                  }}"
+        image:          "{{ image                         }}"
+        disk_size:      "{{ disk_size_gb                  }}"
+        tags:           "{{ gce_tags                      }}"
+        num_instances:  "{{ num_instances | default(omit) }}"
+        state:          "{{ gce_state                     }}"
+      register:         r_gce
+      with_items:       "{{ machine_states                }}"
       loop_control:
-        loop_var: state
-        label: "{{ state }}"
+        loop_var:       gce_state
+        label:          "{{ gce_state                     }}"
+
+    - name: "Ensure tags for instance"
+      gce_tag:
+        instance_name:  "{{ name                               }}"
+        zone:           "{{ gce_zone                           }}"
+        tags:           "{{ gce_tags                           }}"
+        state:          "{{ gce_tag_state | default('present') }}"
 
     - name: "Output"
       debug: var=r_gce
