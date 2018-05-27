@@ -108,7 +108,7 @@
         {{ hostvars[database_server].inventory_hostname | quote }}<br />
 
         <?php
-          $link = @mysqli_connect('{{ hostvars[database_server].ansible_host | default(hostvars[database_server].ansible_ssh_host) }}', '{{ website_dbuser }}', '{{ website_dbpass }}');
+          $link = @mysqli_connect({{ hostvars[database_server].ansible_host | default(hostvars[database_server].ansible_ssh_host) | quote }}, {{ hostvars[database_server].website_dbuser | quote }}, {{ hostvars[database_server].website_dbpass | quote }} );
 
           if (!$link) {
               die('Connect Error: ' . mysqli_connect_errno());
