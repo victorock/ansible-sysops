@@ -1,8 +1,18 @@
+- name: "Ensure state of apache_packages"
+  yum:
+    update_cache: yes
+    name: "{{ apache_packages }}"
+    state: latest
+  notify: "restart httpd"
+
 - name: "Ensure state of selinux to allow httpd to connect to the network"
   seboolean:
-    name: httpd_can_network_connect
+    name: "{{ apache_seboolean }}"
     persistent: yes
     state: yes
+  with_items: "{{ apache_sebooleans }}"
+  loop_control:
+    loop_var: apache_seboolean
 
 - name: "Ensure state of apache_ports"
   firewalld:
@@ -14,15 +24,6 @@
   with_items: "{{ apache_ports }}"
   loop_control:
     loop_var: apache_port
-
-- name: "Ensure state of apache_packages"
-  yum:
-    name: "{{ apache_package }}"
-    state: latest
-  with_items: "{{ apache_packages }}"
-  notify: "restart httpd"
-  loop_control:
-    loop_var: apache_package
 
 - name: "Ensure state of apache_services"
   service:

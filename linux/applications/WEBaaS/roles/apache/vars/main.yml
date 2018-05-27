@@ -10,3 +10,7 @@ apache_packages:
   - php
   - php-mysql
   - libsemanage-python
+
+apache_sebooleans:
+  - httpd_can_network_connect
+  - httpd_can_network_connect_db

@@ -85,7 +85,7 @@
         name: "{{ mariadb_dbuser }}"
         host: '%'
         password: "{{ mariadb_dbpass }}"
-        priv: '*.*:ALL'
+        priv: '*.*:ALL,GRANT'
         state: "{{ mariadb_dbuser_state }}"
       when:
         - mariadb_dbuser is defined
