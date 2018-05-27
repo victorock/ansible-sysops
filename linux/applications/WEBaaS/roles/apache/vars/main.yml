@@ -1,5 +1,6 @@
 apache_services:
   - httpd
+  - firewalld
 
 apache_ports:
   - 80/tcp

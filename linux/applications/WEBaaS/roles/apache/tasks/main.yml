@@ -14,6 +14,15 @@
   loop_control:
     loop_var: apache_seboolean
 
+- name: "Ensure state of apache_services"
+  service:
+    name: "{{ apache_service }}"
+    enabled: yes
+    state: started
+  with_items: "{{ apache_services }}"
+  loop_control:
+    loop_var: apache_service
+
 - name: "Ensure state of apache_ports"
   firewalld:
     port: "{{ apache_port }}"
@@ -24,12 +33,3 @@
   with_items: "{{ apache_ports }}"
   loop_control:
     loop_var: apache_port
-
-- name: "Ensure state of apache_services"
-  service:
-    name: "{{ apache_service }}"
-    enabled: yes
-    state: started
-  with_items: "{{ apache_services }}"
-  loop_control:
-    loop_var: apache_service
