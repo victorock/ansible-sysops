@@ -11,11 +11,9 @@
         machine_type:   "{{ gce_machine_type      | default('n1-standard-1')  }}"
         image:          "{{ gce_image             | default('rhel-7')         }}"
         disk_size:      "{{ gce_disk_size_gb      | default('20')             }}"
-        tags:
-          -             "{{ gce_machine_tags      | default(omit) }}"
-          -             "{{ gce_application_tags  | default(omit) }}"
-        num_instances:  "{{ gce_num_instances     | default(omit) }}"
-        state:          "{{ gce_state                             }}"
+        tags:           "{{ gce_machine_tags      | default('staging')        }}"
+        num_instances:  "{{ gce_num_instances     | default(omit)             }}"
+        state:          "{{ gce_state }}"
       register:         r_gce
       with_items:
         - present
@@ -24,9 +22,9 @@
         loop_var:       gce_state
         label:          "{{ gce_state }}"
 
-    - name: "Ensure tags for instance"
+    - name: "Ensure application tags for instance"
       gce_tag:
         instance_name:  "{{ name      }}"
         zone:           "{{ gce_zone  }}"
-        tags:           "{{ gce_tags  }}"
+        tags:           "{{ gce_application_tags | default('unknown') }}"
         state:          "present"
