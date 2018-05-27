@@ -4,10 +4,8 @@
   gather_facts: yes
 
   vars:
-    linux_update: yes
     autorun: true
+    linux_update: yes
 
-  tasks:
-    - name: "victorock.linux"
-      include_role:
-         name: victorock.linux
+  roles:
+    - victorock.linux

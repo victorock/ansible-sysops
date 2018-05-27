@@ -6,10 +6,8 @@
   vars:
     autorun: true
     linux_update: no
-#    linux_rhs_org_id: ''
-#    linux_rhs_activation_key: ''
+    linux_additional_packages:
+      - libsemanage-python
 
-  tasks:
-    - name: "victorock.linux"
-      include_role:
-         name: victorock.linux
+  roles:
+    - victorock.linux
