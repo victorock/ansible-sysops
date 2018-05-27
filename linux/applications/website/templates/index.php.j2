@@ -106,13 +106,23 @@
 			<div class="col-sm-12">
       {% for database_server in website_database_servers %}
         {{ hostvars[database_server].inventory_hostname | quote }}<br />
-  			<?php
-  				$link = mysqli_connect('{{ hostvars[database_server].ansible_host | default(hostvars[database_server].ansible_ssh_host) }}', '{{ website_dbuser }}', '{{ website_dbpass }}' ) or die(mysqli_connect_error($link));
-          $res = mysqli_query($link, "SHOW DATABASES;");
-  				while ($row = mysqli_fetch_assoc($res))
-  				{
-    				echo $row['Database'] . "<br>\n";
-  				}
+
+        <?php
+          $link = @mysqli_connect('{{ hostvars[database_server].ansible_host | default(hostvars[database_server].ansible_ssh_host) }}', '{{ website_dbuser }}', '{{ website_dbpass }}');
+
+          if (!$link) {
+              die('Connect Error: ' . mysqli_connect_errno());
+          }
+
+          if ($result = mysqli_query($link, "SHOW DATABASES")) {
+
+            while ($row = mysqli_fetch_assoc($result))
+            {
+            	echo $row['Database'] . "<br>\n";
+            }
+
+              mysqli_free_result($result);
+          }
   	    ?>
 
       {% endfor %}
