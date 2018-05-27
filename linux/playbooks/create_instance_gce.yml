@@ -24,7 +24,7 @@
 
     - name: "Ensure application tags for instance"
       gce_tag:
-        instance_name:  "{{ name      }}"
-        zone:           "{{ gce_zone  }}"
-        tags:           "{{ gce_application_tags | default('unknown') }}"
-        state:          "present"
+        instance_pattern: "{{ gce_name  }}*"
+        zone:             "{{ gce_zone  }}"
+        tags:             "{{ gce_application_tags | default('unknown') }}"
+        state:            "present"
