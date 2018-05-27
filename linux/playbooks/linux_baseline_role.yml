@@ -4,6 +4,7 @@
   gather_facts: yes
 
   vars:
+    autorun: true
     linux_update: no
 #    linux_rhs_org_id: ''
 #    linux_rhs_activation_key: ''

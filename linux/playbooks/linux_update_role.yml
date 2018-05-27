@@ -5,6 +5,7 @@
 
   vars:
     linux_update: yes
+    autorun: true
 
   tasks:
     - name: "victorock.linux"
