@@ -8,12 +8,15 @@
     image: "rhel-7"
     machine_type: "n1-standard-1"
     disk_size_gb: 20
-    machine_environment: "staging"
-    machine_class: "unknown"
+    machine_tags:
+      - dev
+      - web
+      - database
+    application_tags:
+      - website
+      - release_0_1
     zone: "europe-west1-d"
-    tags:
-      - "{{ machine_environment }}"
-      - "{{ machine_class }}"
+    gce_tags: "{{ machine_tags + application_tags}}"
 
   tasks:
     - name: "Ensure state of virtual instance in google compute engine"
@@ -23,7 +26,7 @@
         machine_type: "{{ machine_type }}"
         image: "{{ image }}"
         disk_size: "{{ disk_size_gb }}"
-        tags: "{{ tags }}"
+        tags: "{{ gce_tags }}"
         num_instances: "{{ num_instances | default(omit) }}"
         state: "{{ state }}"
       register: r_gce
