@@ -28,7 +28,6 @@
         update_cache: yes
         name: "{{ apache_packages }}"
         state: latest
-      with_items: "{{ apache_packages }}"
       notify: "restart httpd"
 
     - name: "Ensure state of apache_services"
