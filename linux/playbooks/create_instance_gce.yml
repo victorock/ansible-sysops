@@ -28,3 +28,6 @@
         zone:             "{{ gce_zone              | default('europe-west1-d') }}"
         tags:             "{{ gce_application_tags  | default('unknown') }}"
         state:            "present"
+      when:
+        - gce_num_instances is defined
+        - gce_num_instances|int > 0
