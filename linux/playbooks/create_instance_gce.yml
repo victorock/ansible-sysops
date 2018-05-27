@@ -25,6 +25,6 @@
     - name: "Ensure application tags for instance"
       gce_tag:
         instance_pattern: "{{ gce_name  }}*"
-        zone:             "{{ gce_zone  }}"
-        tags:             "{{ gce_application_tags | default('unknown') }}"
+        zone:             "{{ gce_zone              | default('europe-west1-d') }}"
+        tags:             "{{ gce_application_tags  | default('unknown') }}"
         state:            "present"
