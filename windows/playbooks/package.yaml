@@ -3,7 +3,7 @@
   hosts: windows
 
   vars:
-    package_path: 'http://mirror.cc.columbia.edu/pub/software/apache//httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi'
+    package_path: 'https://download-installer.cdn.mozilla.net/pub/firefox/releases/62.0/win64/en-US/Firefox%20Setup%2062.0.exe'
     package_state: 'present'
 
   tasks:
