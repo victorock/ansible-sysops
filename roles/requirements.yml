@@ -1,9 +1,12 @@
 - name: geerlingguy.nginx
 - name: geerlingguy.apache
-- name: victorock.tomcat
 - name: ANXS.postgresql
 - name: ovirt.vm-infra
-- src: https://github.com/victorock/ansible-role-linux.git
+- name: victorock.linux
+  src: https://github.com/victorock/ansible-role-linux.git
   scm: git
   version: dev
-  name: victorock.linux
+- name: victorock.tomcat
+  src: https://github.com/victorock/ansible-role-tomcat
+  scm: git
+  version: dev
