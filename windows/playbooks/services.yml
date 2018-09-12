@@ -1,5 +1,5 @@
 - name: "services"
-  hosts: all
+  hosts: windows
 
   vars:
     services:

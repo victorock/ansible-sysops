@@ -1,5 +1,5 @@
 - name: "PowerShell Module"
-  hosts: all
+  hosts: windows
 
   vars:
     nuget_repository_url: https://nuget.acme.com/

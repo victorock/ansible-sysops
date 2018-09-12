@@ -1,5 +1,5 @@
 - name: "powershell_dsc"
-  hosts: all
+  hosts: windows
 
   vars:
     windowsfeature_name: "telnet-client"

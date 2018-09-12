@@ -1,7 +1,6 @@
 ---
 - name: Install Package
   hosts: windows
-  connection: winrm
 
   vars:
     package_path: 'http://mirror.cc.columbia.edu/pub/software/apache//httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi'

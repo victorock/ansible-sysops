@@ -1,18 +1,27 @@
 ---
-- hosts: all
+- name: "Trigger windows update"
+  hosts: windows
   gather_facts: yes
-  connection: winrm
 
   vars:
+    win_updates_reboot: True
     win_updates_categories:
       - SecurityUpdates
       - CriticalUpdates
       - UpdateRollups
       - Updates
       - ServicePacks
+#      - Application
+#      - Connectors
+#      - DefinitionUpdates
+#      - DeveloperKits
+#      - FeaturePacks
+#      - Guidance
+#      - Tools
 
   tasks:
     - name: "Update packages"
       win_updates:
         category_names: "{{ win_updates_categories }}"
         state: installed
+        reboot: "{{ win_updates_reboot }}"

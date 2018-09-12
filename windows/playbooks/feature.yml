@@ -1,10 +1,8 @@
 ---
 - name: "Enable Windows Feature"
   hosts: windows
-  connection: winrm
 
   vars:
-    ansible_winrm_server_cert_validation: "ignore"
     win_feature: "Web-Server"
     win_feature_state: "present"
 

@@ -1,5 +1,5 @@
 - name: "powershell"
-  hosts: all
+  hosts: windows
 
   vars:
     powershell_dir: "C:\\Users\\Administrator\\Desktop"

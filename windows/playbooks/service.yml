@@ -1,6 +1,5 @@
 - name: "service"
   hosts: windows
-  connection: winrm
 
   vars:
     ansible_winrm_server_cert_validation: "ignore"
