@@ -1,0 +1,17 @@
+- name: "Install Package"
+  hosts: linux
+  become: yes
+
+  vars:
+    yum_packages:
+      - vim
+    yum_package_state: "present"
+
+  tasks:
+    - name: "Ensure state of package"
+      yum:
+        name: "{{ yum_packages }}"
+        update_cache: yes
+        validate_certs: no
+        security: yes
+        state: latest
