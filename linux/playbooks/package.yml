@@ -5,7 +5,7 @@
   vars:
     yum_packages:
       - vim
-    yum_package_state: "present"
+    yum_package_state: "latest"
 
   tasks:
     - name: "Ensure state of package"
@@ -14,4 +14,4 @@
         update_cache: yes
         validate_certs: no
         security: yes
-        state: latest
+        state: "{{ yum_package_state }}"
