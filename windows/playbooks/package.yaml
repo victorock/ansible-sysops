@@ -1,5 +1,5 @@
 ---
-- name: Install Apache from an MSI
+- name: Install Package
   hosts: windows
   connection: winrm
 
