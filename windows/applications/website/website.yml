@@ -1,7 +1,9 @@
 - name: "Deploy website"
-  hosts: all
+  hosts: windows
+  connection: winrm
 
   vars:
+    ansible_winrm_server_cert_validation: "ignore"
     website_name: MyWinApp
     website_version: 0.1
     website_dir: "c:\\inetpub\\wwwroot\\"

@@ -1,9 +1,11 @@
 ---
 # Manage databases on existing SQL instances
-- hosts: localhost
-  connection: local
+- name: "Create Database"
+  hosts: windows
+  connection: winrm
 
   vars:
+    ansible_winrm_server_cert_validation: "ignore"
     db_name: ''
     db_host: ''
     db_host_user: ''

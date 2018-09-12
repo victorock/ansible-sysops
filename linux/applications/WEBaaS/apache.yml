@@ -1,6 +1,8 @@
 ---
 - name: "apache"
-  hosts: all
+  hosts: apache
+  gather_facts: true
+  become: true
 
   roles:
     - apache

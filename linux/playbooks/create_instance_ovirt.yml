@@ -1,0 +1,45 @@
+- name: "Create instance from template in oVirt"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+#    engine_url: https://ovirt-engine.example.com/ovirt-engine/api
+#    engine_user: admin@internal
+#    engine_password: 123456
+#    engine_cafile: /etc/pki/ovirt-engine/ca.pem
+
+    # VM Profile definition
+    vm_profile:
+      cluster: "{{ vm_profile_cluster_name | default("production") }}"
+      template: "{{ vm_profile_template | default("rhel7") }}"
+      memory: "{{ vm_profile_memory | default("4GiB") }}"
+      cores: "{{ vm_profile_cores | default("2") }}"
+      format: "{{ vm_profile_format | default("cow") }}"
+      storage_domain: "{{ vm_profile_storage_domain | default("storage01") }}"
+      nics: "{{ vm_profile_nics | default(vm_nics) }}"
+      state: "{{ vm_profile_state | default("running") }}"
+
+    vm_nics:
+      - vm_nic_eth0
+
+    vm_cloud_init:
+      root_password: "{{ cloud_init_root_password | default("MyPassword123!") }}"
+      ssh_key: "{{ cloud_init_ssh_key | default(None) }}"
+      domain: "{{ cloud_init_domain | default(None) }}"
+
+    # VM Definition
+    vm:
+      name: "{{ vm_name }}"
+      profile: "{{ vm_profile }}"
+      cloud_init: "{{ vm_cloud_init }}"
+      cloud_init_nics: "{{ vm_cloud_init_nics }}"
+      tags: "{{ vm_tags }}"
+
+  roles:
+    - role: "oVirt.vm-infra"
+      vms: [ "{{ vm }}" ]
+      wait_for_ip: True
+      debug_vm_create: True
+      vm_infra_wait_for_ip_retries: 10
+      vm_infra_wait_for_ip_delay: 10

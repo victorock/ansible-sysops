@@ -1,3 +1,8 @@
+- name: geerlingguy.nginx
+- name: geerlingguy.apache
+- name: victorock.tomcat
+- name: ANXS.postgresql
+- name: ovirt.vm-infra
 - src: https://github.com/victorock/ansible-role-linux.git
   scm: git
   version: dev

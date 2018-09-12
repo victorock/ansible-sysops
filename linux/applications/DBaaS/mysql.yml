@@ -1,0 +1,8 @@
+---
+- name: "mysql"
+  hosts: mysql
+  gather_facts: true
+  become: true
+
+  roles:
+    - role: geerlingguy.mysql

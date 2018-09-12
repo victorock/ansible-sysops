@@ -1,0 +1,7 @@
+- name: "Deploy Tomcat"
+  hosts: tomcat
+  gather_facts: true
+  become: true
+
+  roles:
+    - role: victorock.tomcat

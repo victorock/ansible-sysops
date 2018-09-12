@@ -1,8 +1,10 @@
 ---
 - name: "mysql"
-  hosts: all
+  hosts: windows
+  connection: winrm
 
   vars:
+    ansible_winrm_server_cert_validation: "ignore"
     proxy_url: "{{ lookup('env', 'HTTP_PROXY_URL') | default(omit) }}"
     proxy_username: "{{ lookup('env', 'HTTP_PROXY_USERNAME') | default(omit) }}"
     proxy_password: "{{ lookup('env', 'HTTP_PROXY_PASSWORD') | default(omit) }}"

@@ -1,7 +1,9 @@
 - name: "service"
-  hosts: all
+  hosts: windows
+  connection: winrm
 
   vars:
+    ansible_winrm_server_cert_validation: "ignore"
     win_service_name: RSCDsvc
     win_service_start_mode: auto
     win_service_state: started

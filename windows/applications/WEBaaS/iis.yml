@@ -1,6 +1,10 @@
 ---
 - name: "iis"
-  hosts: all
+  hosts: windows
+  connection: winrm
+
+  vars:
+    ansible_winrm_server_cert_validation: "ignore"
 
   tasks:
     - name: "Ensure state of Web-Server"

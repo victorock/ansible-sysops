@@ -1,0 +1,7 @@
+- name: "Deploy NGINX"
+  hosts: nginx
+  gather_facts: true
+  become: true
+
+  roles:
+    - role: geerlingguy.nginx

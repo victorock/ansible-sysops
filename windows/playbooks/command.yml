@@ -1,0 +1,11 @@
+- name: "command"
+  hosts: windows
+  connection: winrm
+
+  vars:
+    ansible_winrm_server_cert_validation: "ignore"
+    win_command: whoami
+
+  tasks:
+    - name: "Run command in the server"
+      win_command: "{{ win_command }}"
