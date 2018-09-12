@@ -1,0 +1,16 @@
+---
+- name: Install Apache from an MSI
+  hosts: windows
+  connection: winrm
+
+  vars:
+    package_path: 'http://mirror.cc.columbia.edu/pub/software/apache//httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi'
+    package_state: 'present'
+
+  tasks:
+    - name: Install Package
+      win_package:
+        path: "{{ package_path }}"
+        product_id: "{{ package_product_id | default(omit) }}"
+        arguments: "{{ package_arguments | default(omit) }}"
+        state: "{{ package_state }}"
