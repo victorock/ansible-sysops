@@ -50,5 +50,7 @@
         state: "{{ state }}"
       register: r_vmware_guest
 
-    - name: "Output"
-      debug: var=r_vmware_guest
+    - name: "debug"
+      debug:
+        var: r_vmware_guest
+        verbosity: 2

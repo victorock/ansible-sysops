@@ -13,3 +13,6 @@
       win_feature:
         name: "{{ win_feature }}"
         state: "{{ win_feature_state }}"
+        restart: yes
+        include_sub_features: yes
+        include_management_tools: yes
