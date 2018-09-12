@@ -5,7 +5,7 @@
   vars:
     package_path: 'https://download-installer.cdn.mozilla.net/pub/firefox/releases/62.0/win64/en-US/Firefox%20Setup%2062.0.exe'
     package_state: 'present'
-    package_arguments: '-sm'
+    package_arguments: '-ms'
     package_product_id: '{ec8030f7-c20a-464f-9b0e-13a3a9e97384}'
 
   tasks:
