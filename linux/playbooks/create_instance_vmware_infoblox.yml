@@ -48,11 +48,11 @@
             ip: "{{ vmware_guest_nic_ip | ipaddr('address') }}"
             netmask: "{{ vmware_guest_nic_netmask | ipaddr('netmask')}}"
         hardware:
-          memory_mb: "{{ memory }}"
-          num_cpus: "{{ vcpus }}"
-        wait_for_ip_address: "{{ wait_for_ip_address }}"
-        annotation: "{{ annotation | join(',') }}"
-        state: "{{ state }}"
+          memory_mb: "{{ vmware_guest_memory }}"
+          num_cpus: "{{ vmware_guest_vcpus }}"
+        wait_for_ip_address: "{{ vmware_guest_wait_for_ip_address }}"
+        annotation: "{{ vmware_guest_annotation | join(',') }}"
+        state: "{{ vmware_guest_state }}"
       register: r_vmware_guest
 
     - name: "debug"
