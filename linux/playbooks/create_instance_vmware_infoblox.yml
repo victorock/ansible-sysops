@@ -42,11 +42,13 @@
           - size_gb: "{{ vmware_guest_disk_size_gb }}"
             type: "{{ vmware_guest_disk_type }}"
             datastore: "{{ vmware_guest_datastore }}"
-        nic:
-          - device_type: "{{ vmware_guest_nic_device_type }}"
-            network: "{{ vmware_guest_network }}"
+        networks:
+          - name: "{{ vmware_guest_network }}"
+            device_type: "{{ vmware_guest_nic_device_type }}"
             ip: "{{ vmware_guest_nic_ip | ipaddr('address') }}"
             netmask: "{{ vmware_guest_nic_netmask | ipaddr('netmask')}}"
+            gateway: "{{ vmware_guest_nic_ip | ipaddr('1') | ipaddr('address') }}"
+            start_connected: true
         hardware:
           memory_mb: "{{ vmware_guest_memory }}"
           num_cpus: "{{ vmware_guest_vcpus }}"
