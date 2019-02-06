@@ -18,8 +18,8 @@
     vmware_guest_cluster: "POD01"
     vmware_guest_datastore: "gluster_datastore_01"
     vmware_guest_annotation:
-      - "environment={{ machine_environment }}"
-      - "class={{ machine_class }}"
+      - "environment={{ vmware_guest_machine_environment }}"
+      - "class={{ vmware_guest_machine_class }}"
     vmware_guest_validate_certs: False
     vmware_guest_dumpfacts: False
     vmware_guest_wait_for_ip_address: True
@@ -54,6 +54,9 @@
         annotation: "{{ vmware_guest_annotation | join(',') }}"
         state: "{{ vmware_guest_state }}"
       register: r_vmware_guest
+
+    - name: "Add Instance to in-memory inventory"
+
 
     - name: "debug"
       debug:
