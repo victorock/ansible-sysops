@@ -55,9 +55,6 @@
         state: "{{ vmware_guest_state }}"
       register: r_vmware_guest
 
-    - name: "Add Instance to in-memory inventory"
-
-
     - name: "debug"
       debug:
         var: r_vmware_guest
