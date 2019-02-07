@@ -32,15 +32,12 @@
     vmware_guest_nic_netmask: "{{ nios_host_record_subnet }}"
 
   tasks:
-    - debug:
-        var: vmware_guest_nic_ip
-
     - name: "Ensure state of virtual instance in vmware"
       vmware_guest:
         validate_certs: "{{ vmware_guest_validate_certs }}"
         esxi_hostname: "{{ vmware_guest_esxhost | default(omit) }}"
         datacenter: "{{ vmware_guest_datacenter }}"
-        name: "{{ vmware_guest_name | default(mandatory )}}"
+        name: "{{ vmware_guest_name | default(mandatory) }}"
         cluster: "{{ vmware_guest_cluster | default(omit) }}"
         resource_pool: "{{ vmware_guest_resource_pool | default(omit) }}"
         template: "{{ vmware_guest_template }}"
