@@ -4,7 +4,7 @@
   gather_facts: false
 
   vars:
-    vmware_guest_name: "{{ nios_host_record_host | default(mandatory) }}"
+    vmware_guest_name: "{{ nios_host_record_host }}"
     vmware_guest_template: "RHEL7"
     vmware_guest_vcpus: 1
     vmware_guest_memory: 1024
@@ -28,19 +28,19 @@
     vmware_guest_nic_device_type: vmxnet3
     vmware_guest_nic_type: static
     vmware_guest_network_nic_dvswitch: "dvSwitch01"
-    vmware_guest_nic_ip: "{{ nios_host_record_ipv4addr[0] | ipaddr('address') }}"
+    vmware_guest_nic_ip: "{{ lookup('nios', 'record:host', filter={'name': nios_host_record_fqdn }) }}"
     vmware_guest_nic_netmask: "{{ nios_host_record_subnet | ipaddr('netmask') }}"
 
   tasks:
     - debug:
-        var: nios_host_record_ipv4addr
+        var: vmware_guest_nic_ip
 
     - name: "Ensure state of virtual instance in vmware"
       vmware_guest:
         validate_certs: "{{ vmware_guest_validate_certs }}"
         esxi_hostname: "{{ vmware_guest_esxhost | default(omit) }}"
         datacenter: "{{ vmware_guest_datacenter }}"
-        name: "{{ vmware_guest_name }}"
+        name: "{{ vmware_guest_name | default(mandatory )}}"
         cluster: "{{ vmware_guest_cluster | default(omit) }}"
         resource_pool: "{{ vmware_guest_resource_pool | default(omit) }}"
         template: "{{ vmware_guest_template }}"
@@ -52,12 +52,12 @@
             datastore: "{{ vmware_guest_datastore }}"
         networks:
           - name: "{{ vmware_guest_network }}"
-            dvswitch_name: "{{ vmware_guest_network_nic_dvswitch }}"
-            device_type: "{{ vmware_guest_nic_device_type }}"
-            type: "{{ vmware_guest_nic_type }}"
-            ip: "{{ vmware_guest_nic_ip | ipaddr('address') }}"
-            netmask: "{{ vmware_guest_nic_netmask }}"
-            gateway: "{{ vmware_guest_nic_ip | ipaddr('1') | ipaddr('address') }}"
+            dvswitch_name: "{{ vmware_guest_network_nic_dvswitch | default(omit) }}"
+            device_type: "{{ vmware_guest_nic_device_type | default(omit) }}"
+            type: "{{ vmware_guest_nic_type | default(omit) }}"
+            ip: "{{ vmware_guest_nic_ip | ipaddr('address') or default(omit) }}"
+            netmask: "{{ vmware_guest_nic_netmask | ipaddr('netmask') or default(omit) }}"
+            gateway: "{{ vmware_guest_nic_ip | ipaddr('1') | ipaddr('address') or default(omit) }}"
             start_connected: true
         hardware:
           memory_mb: "{{ vmware_guest_memory }}"
