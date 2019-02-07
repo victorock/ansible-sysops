@@ -32,6 +32,9 @@
     vmware_guest_nic_netmask: "{{ nios_host_record_subnet | ipaddr('netmask') }}"
 
   tasks:
+    - debug:
+        var: nios_host_record_ipv4addr
+
     - name: "Ensure state of virtual instance in vmware"
       vmware_guest:
         validate_certs: "{{ vmware_guest_validate_certs }}"
