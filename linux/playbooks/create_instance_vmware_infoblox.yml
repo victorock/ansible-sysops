@@ -26,6 +26,8 @@
     vmware_guest_resource_pool: 'Production'
     vmware_guest_state: poweredon
     vmware_guest_nic_device_type: vmxnet3
+    vmware_guest_nic_type: static
+    vmware_guest_network_nic_dvswitch: "dvSwitch01"
     vmware_guest_nic_ip: "{{ nios_host_record_ipv4addr | ipaddr('address) }}"
     vmware_guest_nic_netmask: "{{ nios_host_record_subnet | ipaddr('netmask') }}"
 
@@ -47,7 +49,9 @@
             datastore: "{{ vmware_guest_datastore }}"
         networks:
           - name: "{{ vmware_guest_network }}"
+            dvswitch_name: "{{ vmware_guest_network_nic_dvswitch }}"
             device_type: "{{ vmware_guest_nic_device_type }}"
+            type: "{{ vmware_guest_nic_type }}"
             ip: "{{ vmware_guest_nic_ip | ipaddr('address') }}"
             netmask: "{{ vmware_guest_nic_netmask }}"
             gateway: "{{ vmware_guest_nic_ip | ipaddr('1') | ipaddr('address') }}"
