@@ -26,7 +26,7 @@
     vmware_guest_resource_pool: 'Production'
     vmware_guest_state: poweredon
     vmware_guest_nic_device_type: vmxnet3
-    vmware_guest_nic_ip: "{{ nios_host_record_ipv4addr | ipaddr('address) | default('') }}"
+    vmware_guest_nic_ip: "{{ nios_host_record_ipv4addr | ipaddr('address) }}"
     vmware_guest_nic_netmask: "{{ nios_host_record_subnet | ipaddr('netmask') }}"
 
   tasks:
