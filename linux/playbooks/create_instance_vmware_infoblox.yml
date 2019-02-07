@@ -23,10 +23,11 @@
     vmware_guest_validate_certs: False
     vmware_guest_dumpfacts: False
     vmware_guest_wait_for_ip_address: True
+    vmware_guest_resource_pool: 'Production'
     vmware_guest_state: poweredon
     vmware_guest_nic_device_type: vmxnet3
-    vmware_guest_nic_ip: "{{ nios_host_record_ipv4addr | default('') }}"
-    vmware_guest_nic_netmask: "{{ nios_host_record_subnet | default('') }}"
+    vmware_guest_nic_ip: "{{ nios_host_record_ipv4addr | ipaddr('address) | default('') }}"
+    vmware_guest_nic_netmask: "{{ nios_host_record_subnet | ipaddr('netmask') }}"
 
   tasks:
     - name: "Ensure state of virtual instance in vmware"
@@ -35,6 +36,8 @@
         esxi_hostname: "{{ vmware_guest_esxhost | default(omit) }}"
         datacenter: "{{ vmware_guest_datacenter }}"
         name: "{{ vmware_guest_name }}"
+        cluster: "{{ vmware_guest_cluster | default(omit) }}"
+        resource_pool: "{{ vmware_guest_resource_pool | default(omit) }}"
         template: "{{ vmware_guest_template }}"
         folder: "{{ vmware_guest_folder | default(mandatory) }}"
         guest_id: "{{ vmware_guest_os }}"
@@ -46,7 +49,7 @@
           - name: "{{ vmware_guest_network }}"
             device_type: "{{ vmware_guest_nic_device_type }}"
             ip: "{{ vmware_guest_nic_ip | ipaddr('address') }}"
-            netmask: "{{ vmware_guest_nic_netmask | ipaddr('netmask')}}"
+            netmask: "{{ vmware_guest_nic_netmask }}"
             gateway: "{{ vmware_guest_nic_ip | ipaddr('1') | ipaddr('address') }}"
             start_connected: true
         hardware:
