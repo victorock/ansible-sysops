@@ -28,8 +28,8 @@
     vmware_guest_nic_device_type: vmxnet3
     vmware_guest_nic_type: static
     vmware_guest_network_nic_dvswitch: "dvSwitch01"
-    vmware_guest_nic_ip: "{{ lookup('nios', 'record:host', filter={'name': nios_host_record_fqdn }) }}"
-    vmware_guest_nic_netmask: "{{ nios_host_record_subnet | ipaddr('netmask') }}"
+    vmware_guest_nic_ip: "{{ nios_host_record_ipv4addr }}"
+    vmware_guest_nic_netmask: "{{ nios_host_record_subnet }}"
 
   tasks:
     - debug:
