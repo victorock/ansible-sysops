@@ -24,7 +24,7 @@
       - vm_nic_eth0
 
     vm_cloud_init:
-      root_password: "{{ cloud_init_root_password | default("MyPassword123!") }}"
+      root_password: "{{ cloud_init_root_password | default('MyPassword123!') }}"
       ssh_key: "{{ cloud_init_ssh_key | default(None) }}"
       domain: "{{ cloud_init_domain | default(None) }}"
 
