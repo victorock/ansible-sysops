@@ -11,14 +11,14 @@
 
     # VM Profile definition
     vm_profile:
-      cluster: "{{ vm_profile_cluster_name | default("production") }}"
-      template: "{{ vm_profile_template | default("rhel7") }}"
-      memory: "{{ vm_profile_memory | default("4GiB") }}"
-      cores: "{{ vm_profile_cores | default("2") }}"
-      format: "{{ vm_profile_format | default("cow") }}"
-      storage_domain: "{{ vm_profile_storage_domain | default("storage01") }}"
+      cluster: "{{ vm_profile_cluster_name | default('production') }}"
+      template: "{{ vm_profile_template | default('rhel7') }}"
+      memory: "{{ vm_profile_memory | default('4GiB') }}"
+      cores: "{{ vm_profile_cores | default('2') }}"
+      format: "{{ vm_profile_format | default('cow') }}"
+      storage_domain: "{{ vm_profile_storage_domain | default('storage01') }}"
       nics: "{{ vm_profile_nics | default(vm_nics) }}"
-      state: "{{ vm_profile_state | default("running") }}"
+      state: "{{ vm_profile_state | default('running') }}"
 
     vm_nics:
       - vm_nic_eth0
