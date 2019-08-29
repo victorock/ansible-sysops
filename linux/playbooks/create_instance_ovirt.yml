@@ -2,6 +2,7 @@
   hosts: localhost
   connection: local
   gather_facts: false
+  no_log: false
 
   vars:
 #    engine_url: https://ovirt-engine.example.com/ovirt-engine/api
@@ -38,7 +39,8 @@
 
   roles:
     - role: "ovirt.vm-infra"
-      vms: [ "{{ vm }}" ]
+      vms:
+        - "{{ vm }}"
       wait_for_ip: True
       debug_vm_create: True
       vm_infra_wait_for_ip_retries: 10
