@@ -30,17 +30,15 @@
       domain: "{{ cloud_init_domain | default(None) }}"
 
     # VM Definition
-    vm:
-      name: "{{ vm_name }}"
-      profile: "{{ vm_profile }}"
-#      cloud_init: "{{ vm_cloud_init }}"
-#      cloud_init_nics: "{{ vm_cloud_init_nics }}"
-      tags: "{{ vm_tags }}"
+    vms:
+      - name: "{{ vm_name }}"
+        profile: "{{ vm_profile }}"
+#       cloud_init: "{{ vm_cloud_init }}"
+#       cloud_init_nics: "{{ vm_cloud_init_nics }}"
+        tags: "{{ vm_tags }}"
 
   roles:
     - role: "ovirt.vm-infra"
-      vms:
-        - "{{ vm }}"
       wait_for_ip: True
       debug_vm_create: True
       vm_infra_wait_for_ip_retries: 10
