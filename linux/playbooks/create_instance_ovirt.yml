@@ -37,7 +37,7 @@
       tags: "{{ vm_tags }}"
 
   roles:
-    - role: "oVirt.vm-infra"
+    - role: "ovirt.vm-infra"
       vms: [ "{{ vm }}" ]
       wait_for_ip: True
       debug_vm_create: True
