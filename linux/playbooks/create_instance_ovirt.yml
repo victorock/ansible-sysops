@@ -22,8 +22,8 @@
       state: "{{ vm_profile_state | default('running') }}"
 
     vm_nics:
-      - name: "vm_nic_eth0"
-        network: "test1"
+      - name: "nic1"
+        network: "ovirtmgmt"
 
     vm_cloud_init:
       root_password: "{{ cloud_init_root_password | default('MyPassword123!') }}"
