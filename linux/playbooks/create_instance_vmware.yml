@@ -5,6 +5,7 @@
 
   vars:
     name: "MyRHEL7"
+    folder: "{{ name }}"
     template: "RHEL7"
     vcpus: 1
     memory: 1024
