@@ -1,6 +1,5 @@
 - name: "Create VM from template in VMware"
   hosts: localhost
-  connection: local
   gather_facts: false
 
   vars:
