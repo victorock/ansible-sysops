@@ -35,6 +35,9 @@
         template: "{{ template }}"
         folder: "{{ folder | default(omit) }}"
         guest_id: "{{ os }}"
+        customvalues:
+          - key: "vhv.allow"
+            value: "true"
         disk:
           - size_gb: "{{ disk_size_gb }}"
             type: "{{ disk_type }}"
