@@ -42,5 +42,5 @@
     - role: "ovirt.vm-infra"
       wait_for_ip: True
       debug_vm_create: True
-      vm_infra_wait_for_ip_retries: 10
-      vm_infra_wait_for_ip_delay: 10
+      vm_infra_wait_for_ip_retries: 50
+      vm_infra_wait_for_ip_delay: 20
