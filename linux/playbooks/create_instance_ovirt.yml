@@ -33,8 +33,8 @@
     vm:
       name: "{{ vm_name }}"
       profile: "{{ vm_profile }}"
-      cloud_init: "{{ vm_cloud_init }}"
-      cloud_init_nics: "{{ vm_cloud_init_nics }}"
+#      cloud_init: "{{ vm_cloud_init }}"
+#      cloud_init_nics: "{{ vm_cloud_init_nics }}"
       tags: "{{ vm_tags }}"
 
   roles:
