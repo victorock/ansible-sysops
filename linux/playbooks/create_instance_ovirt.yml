@@ -18,11 +18,12 @@
       cores: "{{ vm_profile_cores | default('2') }}"
       format: "{{ vm_profile_format | default('cow') }}"
       storage_domain: "{{ vm_profile_storage_domain | default('storage01') }}"
-#      nics: "{{ vm_profile_nics | default(vm_nics) }}"
+      nics: "{{ vm_profile_nics | default(vm_nics) }}"
       state: "{{ vm_profile_state | default('running') }}"
 
     vm_nics:
       - name: "vm_nic_eth0"
+        network: "test1"
 
     vm_cloud_init:
       root_password: "{{ cloud_init_root_password | default('MyPassword123!') }}"
