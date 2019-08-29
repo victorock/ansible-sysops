@@ -39,9 +39,10 @@
           - size_gb: "{{ disk_size_gb }}"
             type: "{{ disk_type }}"
             datastore: "{{ datastore }}"
-        nic:
-          - type: vmxnet3
-            network: "{{ network }}"
+        networks:
+          - name: "{{ network }}"
+            device_type: vmxnet3
+            start_connected: true
         hardware:
           memory_mb: "{{ memory }}"
           num_cpus: "{{ vcpus }}"
